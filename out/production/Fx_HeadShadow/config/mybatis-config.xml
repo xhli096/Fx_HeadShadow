@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--满足驼峰命名。数据库中字段为last_name，对应实体类对象名称lastName-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL" />
+        <!--懒加载模式，默认为false，打开懒加载模式可以在使用某一个属性的时候再去加载它-->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <!--开启了“侵入加载”，开启它后，将每一次都完整的加载所有属性，如果关闭，则在需要的时候进行属性的加载（按需加载）-->
+        <setting name="aggressiveLazyLoading" value="false" />
+        <!--开启全局二级缓存-->
+        <setting name="cacheEnabled" value="true" />
+    </settings>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/fx_headshadow"/>
+                <property name="username" value="root"/>
+                <property name="password" value="18829523217"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--5、databaseIdProvider：支持多数据库厂商的
+        type="DB_VENDOR" , VendorDatabaseIdProvider
+            作用就是得到数据库厂商的标识，mybatis就能根据数据库厂商表示来执行不同的SQL
+    -->
+    <databaseIdProvider type="DB_VENDOR">
+        <!--为不同的数据库厂商起别名-->
+        <property name="MySQL" value="mysql"></property>
+        <property name="Oracle" value="oracle"></property>
+    </databaseIdProvider>
+
+    <mappers>
+        <mapper resource="mybatis/AddPatientViewMapper.xml" />
+    </mappers>
+</configuration>

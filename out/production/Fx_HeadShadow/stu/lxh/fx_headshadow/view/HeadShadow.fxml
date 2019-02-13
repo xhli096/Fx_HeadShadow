@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stu.lxh.fx_headshadow.controller.HeadShadowViewController">
+   <children>
+      <SplitPane dividerPositions="0.7424749163879598" layoutX="141.0" layoutY="120.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.9015151515151515" layoutX="91.0" layoutY="144.0" orientation="VERTICAL" prefHeight="398.0" prefWidth="342.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane fx:id="patientPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <StackPane fx:id="stackPane" layoutX="-14.0" layoutY="102.0" prefHeight="340.0" prefWidth="130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox fx:id="content">
+                                       <children>
+                                          <ImageView fx:id="patientXImage" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <Canvas fx:id="canvas" height="200.0" width="200.0" />
+                                 </children></StackPane>
+                           </children></AnchorPane>
+                      <AnchorPane maxHeight="50.0" minHeight="50.0" minWidth="0.0" prefHeight="50.0" prefWidth="160.0">
+                           <children>
+                              <TextArea layoutX="-57.0" layoutY="-75.0" prefHeight="50.0" prefWidth="130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
+          <AnchorPane maxWidth="460.0" minWidth="460.0" prefWidth="460.0">
+               <children>
+                  <SplitPane dividerPositions="0.4015151515151515" layoutX="68.0" layoutY="64.0" maxWidth="445.0" minWidth="445.0" orientation="VERTICAL" prefHeight="398.0" prefWidth="445.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane maxHeight="330.0" maxWidth="445.0" minHeight="330.0" minWidth="445.0" prefHeight="330.0" prefWidth="445.0">
+                           <children>
+                              <ImageView fx:id="headShadowGuidanceImageView" disable="true" fitWidth="445.0" focusTraversable="true" layoutY="4.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <image>
+                                    <Image url="file:/E:/教学课件/IDEA_PROJECT/Fx_HeadShadow/resources/config/headShadow.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="OrPointLabel" layoutX="290.0" layoutY="74.0" prefHeight="0.0" prefWidth="15.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font></Label>
+                              <Label fx:id="OrPointTextLabel" layoutX="288.0" layoutY="90.0" prefHeight="32.0" prefWidth="34.0" text="Or" textFill="#ee0808" />
+                              <Label fx:id="PtmPointLabel" layoutX="215.0" layoutY="106.0" prefHeight="0.0" prefWidth="15.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="PtmPointTextLabel" layoutX="191.0" layoutY="113.0" prefHeight="32.0" prefWidth="49.0" text="Ptm" textFill="#ee0808" />
+                              <Label fx:id="ANSPointLabel" layoutX="328.0" layoutY="122.0" prefHeight="41.0" prefWidth="15.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ANSPointTextLabel" layoutX="336.0" layoutY="129.0" prefHeight="32.0" prefWidth="34.0" text="ANS" textFill="#ee0808" />
+                              <Label fx:id="PNSPointLabel" layoutX="220.0" layoutY="110.0" prefHeight="45.0" prefWidth="18.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="PNSPointTextLabel" layoutX="198.0" layoutY="129.0" prefHeight="32.0" prefWidth="34.0" text="PNS" textFill="#ee0808" />
+                              <Label fx:id="APointLabel" layoutX="316.0" layoutY="133.0" prefHeight="45.0" prefWidth="23.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="APointTextLabel" layoutX="326.0" layoutY="145.0" prefHeight="32.0" prefWidth="34.0" text="A" textFill="#ee0808" />
+                              <Label fx:id="AMaxPointLabel" layoutX="316.0" layoutY="122.0" prefHeight="32.0" prefWidth="18.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="AMaxPointTextLabel" layoutX="317.0" layoutY="122.0" prefHeight="32.0" prefWidth="34.0" text="AMax" textFill="#ee0808" />
+                              <Label fx:id="SPrPointLabel" layoutX="322.0" layoutY="165.0" prefHeight="32.0" prefWidth="25.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="SPrPointTextLabel" layoutX="330.0" layoutY="177.0" prefHeight="32.0" prefWidth="34.0" text="SPr" textFill="#ee0808" />
+                              <Label fx:id="UIPointLabel" layoutX="324.0" layoutY="181.0" prefHeight="32.0" prefWidth="25.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="UIPointTextLabel" layoutX="322.0" layoutY="197.0" prefHeight="32.0" prefWidth="34.0" text="UI" textFill="#ee0808" />
+                              <Label fx:id="UIAPointLabel" layoutX="300.0" layoutY="134.0" prefHeight="36.0" prefWidth="29.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="UIAPointTextLabel" layoutX="288.0" layoutY="136.0" prefHeight="32.0" prefWidth="34.0" text="UIA" textFill="#ee0808" />
+                              <Label fx:id="UMoPointLabel" layoutX="266.0" layoutY="165.0" prefHeight="41.0" prefWidth="22.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="UMoPointTextLabel" layoutX="273.0" layoutY="177.0" prefHeight="32.0" prefWidth="34.0" text="UMo" textFill="#ee0808" />
+                              <Label fx:id="LIPointLabel" layoutX="317.0" layoutY="173.0" prefHeight="40.0" prefWidth="22.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="LIPointTextLabel" layoutX="300.0" layoutY="190.0" prefHeight="32.0" prefWidth="14.0" text="LI" textFill="#ee0808" />
+                              <Label fx:id="LIAPointLabel" layoutX="299.0" layoutY="213.0" prefHeight="37.0" prefWidth="19.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="LIAPointTextLabel" layoutX="298.0" layoutY="234.0" prefHeight="32.0" prefWidth="45.0" text="LIA" textFill="#ee0808" />
+                              <Label fx:id="CoPointLabel" layoutX="144.0" layoutY="81.0" prefHeight="40.0" prefWidth="23.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="CoPointTextLabel" layoutX="133.0" layoutY="85.0" prefHeight="32.0" prefWidth="45.0" text="Co" textFill="#ee0808" />
+                              <Label fx:id="ArPointLabel" layoutX="144.0" layoutY="102.0" prefHeight="40.0" prefWidth="23.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ArPointTextLabel" layoutX="149.0" layoutY="117.0" prefHeight="32.0" prefWidth="52.0" text="Ar" textFill="#ee0808" />
+                              <Label fx:id="GoPointLabel" layoutX="162.0" layoutY="197.0" prefHeight="43.0" prefWidth="31.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="GoPointTextLabel" layoutX="165.0" layoutY="224.0" prefHeight="32.0" prefWidth="52.0" text="Go" textFill="#ee0808" />
+                              <Label fx:id="LMoPointLabel" layoutX="266.0" layoutY="172.0" prefHeight="37.0" prefWidth="27.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="LMoPointTextLabel" layoutX="274.0" layoutY="193.0" prefHeight="32.0" prefWidth="52.0" text="LMo" textFill="#ee0808" />
+                              <Label fx:id="MFPointLabel" layoutX="178.0" layoutY="143.0" prefHeight="37.0" prefWidth="27.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="MFPointTextLabel" layoutX="175.0" layoutY="164.0" prefHeight="32.0" prefWidth="52.0" text="MF" textFill="#ee0808" />
+                              <Label fx:id="DPointLabel" layoutX="291.0" layoutY="232.0" prefHeight="37.0" prefWidth="28.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="DPointTextLabel" layoutX="298.0" layoutY="250.0" prefHeight="32.0" prefWidth="52.0" text="D" textFill="#ee0808" />
+                              <Label fx:id="PogPointLabel" layoutX="308.0" layoutY="238.0" prefHeight="37.0" prefWidth="29.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="PogPointTextLabel" layoutX="317.0" layoutY="250.0" prefHeight="32.0" prefWidth="52.0" text="Pog" textFill="#ee0808" />
+                              <Label fx:id="GnPointLabel" layoutX="303.0" layoutY="251.0" prefHeight="34.0" prefWidth="29.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="GnPointTextLabel" layoutX="304.0" layoutY="266.0" prefHeight="32.0" prefWidth="52.0" text="Gn" textFill="#ee0808" />
+                              <Label fx:id="MePointLabel" layoutX="291.0" layoutY="252.0" prefHeight="39.0" prefWidth="31.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="MePointTextLabel" layoutX="288.0" layoutY="275.0" prefHeight="23.0" prefWidth="52.0" text="Me" textFill="#ee0808" />
+                              <Label fx:id="BPointLabel" layoutX="306.0" layoutY="215.0" prefHeight="39.0" prefWidth="32.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="BPointTextLabel" layoutX="316.0" layoutY="227.0" prefHeight="29.0" prefWidth="53.0" text="B" textFill="#ee0808" />
+                              <Label fx:id="IdPointLabel" layoutX="314.0" layoutY="194.0" prefHeight="36.0" prefWidth="25.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="IdPointTextLabel" layoutX="321.0" layoutY="210.0" prefHeight="29.0" prefWidth="53.0" text="Id" textFill="#ee0808" />
+                              <Label fx:id="SPointLabel" layoutX="176.0" layoutY="38.0" prefHeight="32.0" prefWidth="11.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="SPointTextLabel" layoutX="175.0" layoutY="35.0" prefHeight="19.0" prefWidth="53.0" text="S" textFill="#ee0808" />
+                              <Label fx:id="NaPointLabel" layoutX="318.0" layoutY="22.0" prefHeight="32.0" prefWidth="11.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="NaPointTextLabel" layoutX="327.0" layoutY="35.0" prefHeight="19.0" prefWidth="53.0" text="Na" textFill="#ee0808" />
+                              <Label fx:id="PoPointLabel" layoutX="128.0" layoutY="74.0" prefHeight="41.0" prefWidth="11.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="PoPointTextLabel" layoutX="111.0" layoutY="92.0" prefHeight="19.0" prefWidth="49.0" text="Po" textFill="#ee0808" />
+                              <Label fx:id="BaPointTextLabel" layoutX="122.0" layoutY="124.0" prefHeight="19.0" prefWidth="42.0" text="Ba" textFill="#ee0808" />
+                              <Label fx:id="BaPointLabel" layoutX="139.0" layoutY="102.0" prefHeight="46.0" prefWidth="11.0" text="." textFill="#ee0808">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TabPane layoutX="40.0" layoutY="-78.0" prefHeight="60.0" prefWidth="458.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <tabs>
+                                  <Tab text="测量">
+                                       <content>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="7.0" text="上颌标志点" />
+                                                <CheckBox fx:id="OrCheckBox" layoutX="14.0" layoutY="32.0" mnemonicParsing="false" text="Or" AnchorPane.leftAnchor="14.0" />
+                                                <CheckBox fx:id="PtmCheckBox" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" text="Ptm" AnchorPane.leftAnchor="14.0" />
+                                                <CheckBox fx:id="ANSCheckBox" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" text="ANS" AnchorPane.leftAnchor="14.0" />
+                                                <CheckBox fx:id="PNSCheckBox" layoutX="14.0" layoutY="101.0" mnemonicParsing="false" text="PNS" AnchorPane.leftAnchor="14.0" />
+                                                <CheckBox fx:id="ACheckBox" layoutX="14.0" layoutY="123.0" mnemonicParsing="false" text="A" AnchorPane.leftAnchor="14.0" />
+                                                <CheckBox fx:id="AMmaxCheckBox" layoutX="14.0" layoutY="146.0" mnemonicParsing="false" text="AMax" AnchorPane.leftAnchor="14.0" />
+                                                <CheckBox fx:id="SPrCheckBox" layoutX="14.0" layoutY="168.0" mnemonicParsing="false" text="SPr" />
+                                                <CheckBox fx:id="UICheckBox" layoutX="14.0" layoutY="191.0" mnemonicParsing="false" text="UI" />
+                                                <CheckBox fx:id="UIACheckBox" layoutX="14.0" layoutY="214.0" mnemonicParsing="false" text="UIA" />
+                                                <CheckBox fx:id="UMOCheckBox" layoutX="14.0" layoutY="239.0" mnemonicParsing="false" text="UMo" />
+                                                <CheckBox fx:id="SCheckBox" layoutX="14.0" layoutY="261.0" mnemonicParsing="false" text="S" />
+                                                <CheckBox fx:id="NaCheckBox" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" text="Na" />
+                                                <CheckBox fx:id="PoCheckBox" layoutX="14.0" layoutY="310.0" mnemonicParsing="false" text="Po" />
+                                                <CheckBox fx:id="BaCheckBox" layoutX="14.0" layoutY="335.0" mnemonicParsing="false" text="Ba" />
+                                                <Label layoutX="93.0" layoutY="7.0" text="下颌标志点" />
+                                                <CheckBox fx:id="LICheckBox" layoutX="93.0" layoutY="32.0" mnemonicParsing="false" text="LI" />
+                                                <CheckBox fx:id="LIACheckBox" layoutX="93.0" layoutY="56.0" mnemonicParsing="false" text="LIA" />
+                                                <CheckBox fx:id="IdCheckBox" layoutX="93.0" layoutY="78.0" mnemonicParsing="false" text="Id" />
+                                                <CheckBox fx:id="BCheckBox" layoutX="93.0" layoutY="101.0" mnemonicParsing="false" text="B" />
+                                                <CheckBox fx:id="PogCheckBox" layoutX="93.0" layoutY="123.0" mnemonicParsing="false" text="Pog" />
+                                                <CheckBox fx:id="MeCheckBox" layoutX="93.0" layoutY="146.0" mnemonicParsing="false" text="Me" />
+                                                <CheckBox fx:id="GnCheckBox" layoutX="93.0" layoutY="168.0" mnemonicParsing="false" text="Gn" />
+                                                <CheckBox fx:id="DCheckBox" layoutX="93.0" layoutY="191.0" mnemonicParsing="false" text="D" />
+                                                <CheckBox fx:id="GoCheckBox" layoutX="93.0" layoutY="214.0" mnemonicParsing="false" text="Go" />
+                                                <CheckBox fx:id="ArCheckBox" layoutX="93.0" layoutY="239.0" mnemonicParsing="false" text="Ar" />
+                                                <CheckBox fx:id="CoCheckBox" layoutX="93.0" layoutY="261.0" mnemonicParsing="false" text="Co" />
+                                                <CheckBox fx:id="LMoCheckBox" layoutX="93.0" layoutY="286.0" mnemonicParsing="false" text="LMo" />
+                                                <CheckBox fx:id="MFCheckBox" layoutX="93.0" layoutY="310.0" mnemonicParsing="false" text="MF" />
+                                                <Label layoutX="187.0" layoutY="7.0" text="上颌牙-牙槽测量项目" />
+                                                <CheckBox fx:id="angleOfUpperIncisorCheckBox" layoutX="186.0" layoutY="32.0" mnemonicParsing="false" text="上中切牙角" />
+                                                <CheckBox fx:id="NAAngleCheckBox" layoutX="186.0" layoutY="56.0" mnemonicParsing="false" text="1-NA角" />
+                                                <CheckBox fx:id="SNPrCheckBox" layoutX="186.0" layoutY="78.0" mnemonicParsing="false" text="上牙槽缘角" />
+                                                <CheckBox fx:id="NAMMCheckBox" layoutX="186.0" layoutY="101.0" mnemonicParsing="false" text="1-NA(mm)" />
+                                                <CheckBox fx:id="incisorPositionCheckBox" layoutX="186.0" layoutY="123.0" mnemonicParsing="false" text="上中切牙凸距" />
+                                                <CheckBox fx:id="heightOfUpperIncisorAndAlveolarCheckBox" layoutX="186.0" layoutY="146.0" mnemonicParsing="false" text="上前牙-牙槽高" />
+                                                <Label layoutX="327.0" layoutY="7.0" text="下颌骨测量项目" />
+                                                <CheckBox fx:id="SNBAngleCheckBox" layoutX="330.0" layoutY="32.0" mnemonicParsing="false" text="SNB角" />
+                                                <CheckBox fx:id="SNPAngleCheckBox" layoutX="330.0" layoutY="56.0" mnemonicParsing="false" text="SNP角" />
+                                                <CheckBox fx:id="SNDAngleCheckBox" layoutX="330.0" layoutY="78.0" mnemonicParsing="false" text="SND角" />
+                                                <CheckBox fx:id="YAxisAngleCheckBox" layoutX="330.0" layoutY="101.0" mnemonicParsing="false" text="Y轴角" />
+                                                <CheckBox fx:id="YAxisAngleDownsCheckBox" layoutX="330.0" layoutY="123.0" mnemonicParsing="false" text="Y轴角-Downs" />
+                                                <CheckBox fx:id="facialAngleCheckBox" layoutX="330.0" layoutY="146.0" mnemonicParsing="false" text="面角" />
+                                                <CheckBox fx:id="mandibularPlaneToFrankfortPlaneAngleCheckBox" layoutX="330.0" layoutY="168.0" mnemonicParsing="false" text="下颌平面角" />
+                                                <CheckBox fx:id="mandibularPlaneToFrankfortPlaneSNAngleCheckBox" layoutX="330.0" layoutY="191.0" mnemonicParsing="false" text="下颌平面-SN角" />
+                                                <CheckBox fx:id="gonialAngleCheckBox" layoutX="330.0" layoutY="214.0" mnemonicParsing="false" text="下颌角" />
+                                                <CheckBox fx:id="extentOfMandibularBaseCheckBox" layoutX="330.0" layoutY="239.0" mnemonicParsing="false" text="下颌体长" />
+                                                <CheckBox fx:id="extentOfAscendingRamusCheckBox" layoutX="330.0" layoutY="261.0" mnemonicParsing="false" text="升支长" />
+                                                <Button fx:id="revokeButton" layoutX="327.0" layoutY="324.0" mnemonicParsing="false" text="撤销" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content></Tab>
+                                </tabs>
+                              </TabPane>
+                           </children></AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

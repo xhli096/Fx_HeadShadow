@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="stu.lxh.fx_headshadow.dao.AddPatientViewMapper">
+    <!-- namespace:名称空间:动态绑定则指定为接口的全类名,只在MySQL环境下才使用的SQL  -->
+
+    <sql id="insertAllPatientInfoValue">
+        <trim suffixOverrides=",">
+            <if test="patientCardNumber != null and patientCardNumber != ''">
+                #{patientCardNumber},
+            </if>
+            <if test="patientName != null and patientName != ''">
+                #{patientName},
+            </if>
+            <if test="gender != null and gender != ''">
+                #{gender},
+            </if>
+            <if test="dateOfBirth != null">
+                #{dateOfBirth},
+            </if>
+            <if test="firstConsultationTime != null">
+                #{firstConsultationTime},
+            </if>
+            <if test="age != null and age != ''">
+                #{age},
+            </if>
+            <if test="first != null and first != ''">
+                #{first},
+            </if>
+            <if test="doctor != null and doctor != ''">
+                #{doctor},
+            </if>
+            <if test="patientContactPhone != null and patientContactPhone != ''">
+                #{patientContactPhone},
+            </if>
+            <if test="patientContactAddress != null and patientContactAddress != ''">
+                #{patientContactAddress},
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="insertAllPatientInfo">
+        <trim suffixOverrides=",">
+            <if test="patientCardNumber != null and patientCardNumber != ''">
+                patientCardNumber,
+            </if>
+            <if test="patientName != null and patientName != ''">
+                patientName,
+            </if>
+            <if test="gender != null and gender != ''">
+                gender,
+            </if>
+            <if test="dateOfBirth != null">
+                dateOfBirth,
+            </if>
+            <if test="firstConsultationTime != null">
+                firstConsultationTime,
+            </if>
+            <if test="age != null and age != ''">
+                age,
+            </if>
+            <if test="first != null and first != ''">
+                first,
+            </if>
+            <if test="doctor != null and doctor != ''">
+                doctor,
+            </if>
+            <if test="patientContactPhone != null and patientContactPhone != ''">
+                patientContactPhone,
+            </if>
+            <if test="patientContactAddress != null and patientContactAddress != ''">
+                patientContactAddress
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insertPatient" parameterType="stu.lxh.fx_headshadow.entity.Patient">
+        INSERT INTO patient_info (<include refid="insertAllPatientInfo" />)
+        VALUES (<include refid="insertAllPatientInfoValue" />)
+    </insert>
+</mapper>
