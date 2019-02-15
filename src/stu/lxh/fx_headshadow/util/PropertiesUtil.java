@@ -19,7 +19,7 @@ public class PropertiesUtil {
      */
     public static String getFilePath(String fileName){
         try {
-            configFilePath = PropertiesUtil.class.getResource("/config/" + fileName).getPath();
+            configFilePath = PropertiesUtil.class.getClassLoader().getResource("config/" + fileName).getPath();
             configFilePath = java.net.URLDecoder.decode(configFilePath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

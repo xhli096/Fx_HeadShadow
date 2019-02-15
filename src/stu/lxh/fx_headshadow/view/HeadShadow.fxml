@@ -38,7 +38,7 @@
                            </children></AnchorPane>
                       <AnchorPane maxHeight="50.0" minHeight="50.0" minWidth="0.0" prefHeight="50.0" prefWidth="160.0">
                            <children>
-                              <TextArea layoutX="-57.0" layoutY="-75.0" prefHeight="50.0" prefWidth="130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TextArea fx:id="measurementResultTextArea" layoutX="-57.0" layoutY="-75.0" prefHeight="50.0" prefWidth="130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </items>
@@ -265,6 +265,7 @@
                                                 <CheckBox fx:id="NAMMCheckBox" layoutX="186.0" layoutY="101.0" mnemonicParsing="false" text="1-NA(mm)" />
                                                 <CheckBox fx:id="incisorPositionCheckBox" layoutX="186.0" layoutY="123.0" mnemonicParsing="false" text="上中切牙凸距" />
                                                 <CheckBox fx:id="heightOfUpperIncisorAndAlveolarCheckBox" layoutX="186.0" layoutY="146.0" mnemonicParsing="false" text="上前牙-牙槽高" />
+                                                <CheckBox fx:id="SNAAngleCheckBox" layoutX="186.0" layoutY="168.0" mnemonicParsing="false" text="SNA角" />
                                                 <Label layoutX="327.0" layoutY="7.0" text="下颌骨测量项目" />
                                                 <CheckBox fx:id="SNBAngleCheckBox" layoutX="330.0" layoutY="32.0" mnemonicParsing="false" text="SNB角" />
                                                 <CheckBox fx:id="SNPAngleCheckBox" layoutX="330.0" layoutY="56.0" mnemonicParsing="false" text="SNP角" />
