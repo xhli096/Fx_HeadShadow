@@ -34,17 +34,17 @@
                                              <top>
                                                 <HBox prefHeight="26.0" prefWidth="149.0" BorderPane.alignment="CENTER">
                                                    <children>
-                                                      <Button maxHeight="23.0" maxWidth="53.0" minHeight="23.0" minWidth="53.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="53.0" text="前一天">
+                                                      <Button fx:id="preDayButton" maxHeight="23.0" maxWidth="53.0" minHeight="23.0" minWidth="53.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="53.0" text="前一天">
                                                          <HBox.margin>
                                                             <Insets bottom="2.0" top="2.0" />
                                                          </HBox.margin>
                                                       </Button>
-                                                      <Button maxHeight="23.0" maxWidth="53.0" minHeight="23.0" minWidth="53.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="53.0" text="后一天">
+                                                      <Button fx:id="nextDayButton" maxHeight="23.0" maxWidth="53.0" minHeight="23.0" minWidth="53.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="53.0" text="后一天">
                                                          <HBox.margin>
                                                             <Insets bottom="3.0" top="2.0" />
                                                          </HBox.margin>
                                                       </Button>
-                                                      <DatePicker>
+                                                      <DatePicker fx:id="datePicker">
                                                          <HBox.margin>
                                                             <Insets bottom="3.0" top="2.0" />
                                                          </HBox.margin>
@@ -67,7 +67,7 @@
                                                 </HBox>
                                              </bottom>
                                              <center>
-                                                <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                                <ListView fx:id="patientInformationListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                                              </center>
                                           </BorderPane>
                                        </content>
@@ -150,7 +150,7 @@
                                                             </VBox>
                                                             <VBox maxHeight="105.0" maxWidth="200.0" minHeight="105.0" minWidth="200.0" prefHeight="105.0" prefWidth="200.0">
                                                                <children>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="            ">
+                                                                  <Label fx:id="patientNameLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="            ">
                                                                      <VBox.margin>
                                                                         <Insets bottom="5.0" top="5.0" />
                                                                      </VBox.margin>
@@ -158,7 +158,7 @@
                                                                         <Font size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
+                                                                  <Label fx:id="patientCardNumberLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
                                                                      <font>
                                                                         <Font size="16.0" />
                                                                      </font>
@@ -166,7 +166,7 @@
                                                                         <Insets bottom="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
+                                                                  <Label fx:id="ageLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
                                                                      <font>
                                                                         <Font size="16.0" />
                                                                      </font>
@@ -174,7 +174,7 @@
                                                                         <Insets bottom="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
+                                                                  <Label fx:id="firstConsultationTimeLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
                                                                      <font>
                                                                         <Font size="16.0" />
                                                                      </font>
@@ -183,7 +183,7 @@
                                                             </VBox>
                                                             <VBox maxHeight="105.0" maxWidth="110.0" minHeight="105.0" minWidth="110.0" prefHeight="105.0" prefWidth="110.0">
                                                                <children>
-                                                                  <Label text="患者分组：">
+                                                                  <Label text="患者性别：">
                                                                      <VBox.margin>
                                                                         <Insets bottom="5.0" left="15.0" top="5.0" />
                                                                      </VBox.margin>
@@ -219,7 +219,7 @@
                                                             </VBox>
                                                             <VBox maxHeight="105.0" maxWidth="200.0" minHeight="105.0" minWidth="200.0" prefHeight="105.0" prefWidth="200.0">
                                                                <children>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="            ">
+                                                                  <Label fx:id="genderLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="            ">
                                                                      <VBox.margin>
                                                                         <Insets bottom="5.0" top="5.0" />
                                                                      </VBox.margin>
@@ -227,7 +227,7 @@
                                                                         <Font size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
+                                                                  <Label fx:id="dateOfBirthLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
                                                                      <font>
                                                                         <Font size="16.0" />
                                                                      </font>
@@ -235,7 +235,7 @@
                                                                         <Insets bottom="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
+                                                                  <Label fx:id="patientContactPhoneLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
                                                                      <font>
                                                                         <Font size="16.0" />
                                                                      </font>
@@ -243,7 +243,7 @@
                                                                         <Insets bottom="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
+                                                                  <Label fx:id="patientContactAddressLabel" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="          ">
                                                                      <font>
                                                                         <Font size="16.0" />
                                                                      </font>

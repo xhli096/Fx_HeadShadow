@@ -79,4 +79,12 @@
         INSERT INTO patient_info (<include refid="insertAllPatientInfo" />)
         VALUES (<include refid="insertAllPatientInfoValue" />)
     </insert>
+
+    <insert id="insertPatientPhotoPath">
+        INSERT INTO patient_x_image_info (patientCardNumber, patientXImagePath)
+        VALUES 
+        <foreach collection="array" item="path" separator="," open="(" close=")">
+            #{patientCardNumber}, #{path}
+        </foreach>
+    </insert>
 </mapper>

@@ -21,12 +21,24 @@ public class StageManager {
         stageMap.put(key, stage);
     }
 
+    public static void removeStage(String key) {
+        if(stageMap.get(key) != null) {
+            stageMap.remove(key);
+        }
+    }
+
     public static Stage getStage(String key) {
         return stageMap.get(key);
     }
 
     public static void addController(String key, Object controller) {
         controllerMap.put(key, controller);
+    }
+
+    public static void removeController(String key) {
+        if(controllerMap.get(key) != null) {
+            controllerMap.remove(key);
+        }
     }
 
     public static Object getController(String key) {

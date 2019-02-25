@@ -39,6 +39,10 @@ public class AddPatientViewController {
     private RadioButton furtherConsultationRadioButton;
     @FXML
     private Button submitButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button clearButton;
 
     @FXML
     private TextField patientCardNumberTextField;
@@ -130,6 +134,10 @@ public class AddPatientViewController {
         reinitBirthDate();
 
         // 自动生成病历号
+        patientCardNumberTextField.setText(createCardNmber());
+    }
+
+    private String createCardNmber() {
         StringBuffer sb = new StringBuffer();
         StringBuffer stringBuffer = new StringBuffer();
         int index = 3 - String.valueOf(++count).length();
@@ -138,7 +146,8 @@ public class AddPatientViewController {
         }
         sb.append(count);
         stringBuffer.append(cardSdf.format(preDate) + sb.toString());
-        patientCardNumberTextField.setText(stringBuffer.toString());
+
+        return stringBuffer.toString();
     }
 
     /**
@@ -169,11 +178,11 @@ public class AddPatientViewController {
                 String patientName = patientNameTextField.getText();
                 String gender = null;
 
-                if(femaleRadioButton.isSelected()) {
+                if(maleRadioButton.isSelected()) {
                     gender = "男";
                 } else if(femaleRadioButton.isSelected()) {
                     gender = "女";
-                } else if(nothingRadioButton.isSelected()) {
+                } else {
                     gender = "未填";
                 }
 
@@ -209,7 +218,9 @@ public class AddPatientViewController {
                 addPatientViewMapper.insertPatient(patient);
                 sqlSession[0].commit();
 
-                System.out.println(patient.toString());
+                mainViewController.addPatient(patient);
+                mainViewController.setCurrentPatient(patient);
+                StageManager.getStage("addNewPatientStage").close();
             } catch (ParseException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -219,8 +230,37 @@ public class AddPatientViewController {
                     sqlSession[0].close();
                 }
             }
-
         });
+
+        // 取消按钮，直接关闭窗口
+        cancelButton.setOnMouseClicked(event -> {
+            StageManager.getStage("addNewPatientStage").close();
+            // 病历号不应该递增
+            count--;
+        });
+
+        // 清空按钮，将所有信息均复原，初始化
+        clearButton.setOnMouseClicked(event -> {
+            resetAll();
+        });
+    }
+
+    /**
+     * 复原所有信息，除去自动生成的病例号外。
+     */
+    private void resetAll() {
+        patientNameTextField.setText("");
+        maleRadioButton.setSelected(false);
+        femaleRadioButton.setSelected(false);
+        nothingRadioButton.setSelected(false);
+        patientAgeTextField.setText("");
+        doctorTextField.setText("");
+        contactPhoneTextField.setText("");
+        contractAddressTextField.setText("");
+        consultationTime.setValue(null);
+        birthYearComboBox.getSelectionModel().select(0);
+        birthMonthComboBox.getSelectionModel().select(0);
+        birthDayComboBox.getSelectionModel().select(0);
     }
 
     /**
@@ -234,6 +274,5 @@ public class AddPatientViewController {
         // 初始化初诊/复诊单选按钮
         firstGroup = new ToggleGroup();
         firstGroup.getToggles().addAll(firstConsultationRadioButton, furtherConsultationRadioButton);
-
     }
 }
