@@ -2,7 +2,6 @@ package stu.lxh.fx_headshadow.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -16,11 +15,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import stu.lxh.fx_headshadow.dao.AddPatientViewMapper;
+import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
 import stu.lxh.fx_headshadow.util.PropertiesUtil;
 import stu.lxh.fx_headshadow.util.StageManager;
@@ -29,10 +33,7 @@ import stu.lxh.fx_headshadow.util.ThumbnailatorUtil;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by LXH on 2019/1/6.
@@ -87,18 +88,22 @@ public class MainViewController {
 
     private Patient currentPatient;
 
+    private static Map<String, Map<String, Button>> patientPhotoPathMap;
+
     static {
         patientMap = new HashMap<>();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
+        patientPhotoPathMap = new LinkedHashMap<>();
     }
 
     @FXML
     public void initialize() {
-        imageButtonMap = new HashMap<>();
+        imageButtonMap = new LinkedHashMap<>();
         labelList = new ArrayList<>();
         StageManager.addController("MainViewController", this);
         init();
         dealAction();
+
     }
 
     /**
@@ -114,20 +119,50 @@ public class MainViewController {
         return sqlSessionFactory;
     }
 
+    /**
+     * 获得sqlSession
+     * @return
+     * @throws IOException
+     */
+    private SqlSession getSqlSession() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        return sqlSession;
+    }
+
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
 
     public void setCurrentPatient(Patient patient) {
-        // TODO 将之前的一个patient的信息存储到数据库中后，在进行patient的设置
-
-        currentPatient = patient;
         // 此时需要清空buttonMap中的内容，否则会将多余的图像加入到其他病患中
         imageButtonMap.clear();
+        // TODO 将之前的一个patient的信息存储到数据库中后，在进行patient的设置
+        currentPatient = patient;
     }
 
     private void init() {
         datePicker.setValue(LocalDate.now());
+        // 添加一个根据listview初始化的方法
+        initListView();
+    }
+
+    private void initListView() {
+        if(patientMap.size() >= 1) {
+            // 恢复listview
+            //labelList.clear();
+            for(String key : patientMap.keySet()) {
+                Patient patient = patientMap.get(key);
+                Label label = new Label(patient.getPatientName() + "  " + patient.getPatientCardNumber());
+                labelList.add(label);
+            }
+            ObservableList<Label> labels = FXCollections.observableArrayList(labelList);
+            System.out.println(labels.size());
+            patientInformationListView.setItems(null);
+            patientInformationListView.setItems(labels);
+            System.out.println("lalalalalala");
+        }
     }
 
     private void dealAction() {
@@ -179,8 +214,8 @@ public class MainViewController {
                 } else {
                     // 是图片格式
                     Image image = null;
+                    String oriImagePath = PropertiesUtil.getValue("oriImagePath", "config.properties") + fileName;
                     try {
-                        String oriImagePath = PropertiesUtil.getValue("oriImagePath", "config.properties") + fileName;
                         // TODO ????
                         ThumbnailatorUtil.generateScale(Double.parseDouble(PropertiesUtil.getValue("buttonImageRate", "config.properties")), file.getPath(), oriImagePath);
                         String targetImagePath =  PropertiesUtil.getValue("targetImagePath", "config.properties") + fileName;
@@ -194,11 +229,15 @@ public class MainViewController {
                         button.setPrefSize(130, 170);
                         button.setGraphic(new ImageView(image));
                         button.setId(fileName);
-                        imageButtonMap.put(fileName, button);
+
+                        ButtonInfo buttonInfo = new ButtonInfo(button.getId(), PropertiesUtil.getValue("targetImagePath", "config.properties") + fileName, button.getPrefWidth(), button.getPrefHeight());
+
+                        currentPatient.addPatientPhotoPath(fileName, buttonInfo);
                         imageInfoPane.getChildren().add(button);
+                        // 对数据库中的图像信息进行更新
+                        updatePatientImageInfo(currentPatient, oriImagePath);
                     }
-                    // 每一次都进行更新
-                    currentPatient.setPatientPhotoPath(imageButtonMap);
+                    // 每一次都进行更新，加入到Map中去
                     addPatientMap(currentPatient);
                 }
             }
@@ -236,7 +275,7 @@ public class MainViewController {
                         headShadowStage.setOnCloseRequest(event2 -> {
                             HeadShadowViewController controller = fxmlLoader.getController();
                             Map<String, Point2D> positionMap = controller.getPositionMap();
-                            currentPatient.addPositionMap(button.getId(), positionMap);
+//                            currentPatient.addPositionMap(button.getId(), positionMap);
                         });
                         // 将子窗口保存在StageManager的map中
                         StageManager.addStage("headShadowStage", headShadowStage);
@@ -261,11 +300,19 @@ public class MainViewController {
                 setLabelText(switchPatient);
                 // TODO 设置图像信息，将原来的patient的图像信息清除，设置新的patient的图像信息
                 imageInfoPane.getChildren().clear();
-                Map<String, Button> buttonMap = switchPatient.getPatientPhotoPathMap();
-                if(buttonMap.size() >= 1) {
-                    for(String key : buttonMap.keySet()) {
-                        Button button = buttonMap.get(key);
-                        imageInfoPane.getChildren().add(button);
+                Map<String, ButtonInfo> buttonInfoMap = switchPatient.getPatientPhotoPathMap();
+                if(buttonInfoMap != null && buttonInfoMap.size() >= 1) {
+                    for(String key : buttonInfoMap.keySet()) {
+                        try {
+                            ButtonInfo buttonInfo = buttonInfoMap.get(key);
+                            Button button = new Button();
+                            button.setPrefSize(buttonInfo.getWidth(), buttonInfo.getHeight());
+                            button.setGraphic(new ImageView(new Image(new FileInputStream(new File(buttonInfo.getImagePath())))));
+                            button.setId(buttonInfo.getId());
+                            imageInfoPane.getChildren().add(button);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -278,6 +325,21 @@ public class MainViewController {
         nextDayButton.setOnMouseClicked(event -> {
             // 查询当天的病人，并进行渲染，dao层
         });
+    }
+
+    private void updatePatientImageInfo(Patient patient, String photoPath) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = getSqlSession();
+            AddPatientViewMapper addPatientViewMapper = sqlSession.getMapper(AddPatientViewMapper.class);
+            addPatientViewMapper.insertPatientPhotoPath(patient.getPatientCardNumber(), photoPath);
+
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
     }
 
     private void addPatientMap(Patient patient) {
@@ -314,10 +376,26 @@ public class MainViewController {
         genderLabel.setText(patient.getGender());
         dateOfBirthLabel.setText(sdf.format(patient.getDateOfBirth()));
         patientContactPhoneLabel.setText(patient.getPatientContactPhone());
-        patientContactAddressLabel.setText(patient.getPatientCOntactAddress());
+        patientContactAddressLabel.setText(patient.getPatientContactAddress());
     }
 
     public static Map<String, Patient> getPatientMap() {
         return patientMap;
+    }
+
+    public static Map<String, Map<String, Button>> getPatientPhotoPathMap() {
+        return patientPhotoPathMap;
+    }
+
+    public static void setPatientMap(Map<String, Patient> patientMap) {
+        MainViewController.patientMap = patientMap;
+    }
+
+    public ListView<Label> getPatientInformationListView() {
+        return patientInformationListView;
+    }
+
+    public void setPatientInformationListView(ListView<Label> patientInformationListView) {
+        this.patientInformationListView = patientInformationListView;
     }
 }

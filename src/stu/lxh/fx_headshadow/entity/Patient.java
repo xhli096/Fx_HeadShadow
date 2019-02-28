@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -52,18 +53,15 @@ public class Patient {
      */
     private String patientContactAddress;
 
-    /**
-     * 存储每个病人对应的image
-     */
-    private Map<String, Button> patientPhotoPathMap;
-    /**
-     * 存储某一个病例图的标志点信息
-     */
-    private Map<String, Map<String, Point2D>> pointPositionMap;
+    private Map<String, ButtonInfo> patientPhotoPathMap;
+//    /**
+//     * 存储某一个病例图的标志点信息
+//     */
+//    private Map<String, Map<String, Point2D>> pointPositionMap;
 
     public Patient() {
-        this.patientPhotoPathMap = new HashMap<>();
-        this.pointPositionMap = new HashMap<>();
+        this.patientPhotoPathMap = new LinkedHashMap<>();
+//        this.pointPositionMap = new HashMap<>();
     }
 
     public Patient(String patientName, String patientCardNumber, String gender, Date dateOfBirth, Date firstConsultationTime, int age, String first, String doctor, String patientContactPhone, String patientCOntactAddress) {
@@ -77,8 +75,21 @@ public class Patient {
         this.doctor = doctor;
         this.patientContactPhone = patientContactPhone;
         this.patientContactAddress = patientCOntactAddress;
-        this.patientPhotoPathMap = new HashMap<>();
-        this.pointPositionMap = new HashMap<>();
+        this.patientPhotoPathMap = new LinkedHashMap<>();
+//        this.pointPositionMap = new HashMap<>();
+    }
+
+    public Map<String, ButtonInfo> getPatientPhotoPathMap() {
+        return patientPhotoPathMap;
+    }
+
+    public void addPatientPhotoPath(String key, ButtonInfo buttonInfo) {
+        if(patientPhotoPathMap.keySet().contains(key)) {
+            patientPhotoPathMap.remove(key);
+            patientPhotoPathMap.put(key, buttonInfo);
+        } else {
+            patientPhotoPathMap.put(key, buttonInfo);
+       }
     }
 
     public String getPatientName() {
@@ -129,7 +140,7 @@ public class Patient {
         this.age = age;
     }
 
-    public String isFirst() {
+    public String getFirst() {
         return first;
     }
 
@@ -153,32 +164,25 @@ public class Patient {
         this.patientContactPhone = patientContactPhone;
     }
 
-    public String getPatientCOntactAddress() {
+    public String getPatientContactAddress() {
         return patientContactAddress;
     }
 
-    public void setPatientCOntactAddress(String patientContactAddress) {
+    public void setPatientContactAddress(String patientContactAddress) {
         this.patientContactAddress = patientContactAddress;
     }
 
-    public void setPatientPhotoPath(Map<String, Button> imageButtonMap) {
-        patientPhotoPathMap = new HashMap<>(imageButtonMap);
-    }
+//    /**
+//     * 添加某一个图片的标记点信息
+//     */
+//    public void addPositionMap(String imageId, Map<String, Point2D> positionMap) {
+//        if(pointPositionMap.get(imageId) == null) {
+//            pointPositionMap.put(imageId, positionMap);
+//        } else {
+//            pointPositionMap.replace(imageId, pointPositionMap.get(imageId), positionMap);
+//        }
+//    }
 
-    public Map<String, Button> getPatientPhotoPathMap() {
-        return patientPhotoPathMap;
-    }
-
-    /**
-     * 添加某一个图片的标记点信息
-     */
-    public void addPositionMap(String imageId, Map<String, Point2D> positionMap) {
-        if(pointPositionMap.get(imageId) == null) {
-            pointPositionMap.put(imageId, positionMap);
-        } else {
-            pointPositionMap.replace(imageId, pointPositionMap.get(imageId), positionMap);
-        }
-    }
 
     @Override
     public String toString() {

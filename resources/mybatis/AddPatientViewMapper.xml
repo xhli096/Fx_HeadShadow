@@ -82,9 +82,6 @@
 
     <insert id="insertPatientPhotoPath">
         INSERT INTO patient_x_image_info (patientCardNumber, patientXImagePath)
-        VALUES 
-        <foreach collection="array" item="path" separator="," open="(" close=")">
-            #{patientCardNumber}, #{path}
-        </foreach>
+        VALUES (#{patientCardNumber}, #{photoPath})
     </insert>
 </mapper>

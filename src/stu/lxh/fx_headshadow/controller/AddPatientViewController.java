@@ -226,9 +226,7 @@ public class AddPatientViewController {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                if(sqlSession[0] != null) {
-                    sqlSession[0].close();
-                }
+                sqlSession[0].close();
             }
         });
 
@@ -274,5 +272,13 @@ public class AddPatientViewController {
         // 初始化初诊/复诊单选按钮
         firstGroup = new ToggleGroup();
         firstGroup.getToggles().addAll(firstConsultationRadioButton, furtherConsultationRadioButton);
+    }
+
+    public static void setCount(int count) {
+        AddPatientViewController.count = count;
+    }
+
+    public static int getCount() {
+        return count;
     }
 }

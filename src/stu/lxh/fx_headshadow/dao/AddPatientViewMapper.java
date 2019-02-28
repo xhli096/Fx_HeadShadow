@@ -1,5 +1,6 @@
 package stu.lxh.fx_headshadow.dao;
 
+import org.apache.ibatis.annotations.Param;
 import stu.lxh.fx_headshadow.entity.Patient;
 
 /**
@@ -14,5 +15,5 @@ public interface AddPatientViewMapper {
     /**
      * 将患者的图片信息插入到数据库中
      */
-    void insertPatientPhotoPath(String patientCardNumber, String[] photoPath);
+    void insertPatientPhotoPath(@Param("patientCardNumber") String patientCardNumber, @Param("photoPath") String photoPath);
 }
