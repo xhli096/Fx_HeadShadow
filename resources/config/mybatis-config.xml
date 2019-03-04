@@ -38,5 +38,6 @@
 
     <mappers>
         <mapper resource="mybatis/AddPatientViewMapper.xml" />
+        <mapper resource="mybatis/PatientInfoMapper.xml" />
     </mappers>
 </configuration>

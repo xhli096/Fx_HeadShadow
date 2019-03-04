@@ -1,10 +1,6 @@
 package stu.lxh.fx_headshadow.entity;
 
-import javafx.geometry.Point2D;
-import javafx.scene.control.Button;
-
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -183,6 +179,9 @@ public class Patient {
 //        }
 //    }
 
+    public void setPatientPhotoPathMap(Map<String, ButtonInfo> patientPhotoPathMap) {
+        this.patientPhotoPathMap = patientPhotoPathMap;
+    }
 
     @Override
     public String toString() {

@@ -1,13 +1,11 @@
 package stu.lxh.fx_headshadow.entity;
 
 
-import javafx.scene.image.Image;
-
 /**
  * Created by LXH on 2019/2/26.
  */
 public class ButtonInfo {
-    private String id;
+    private String buttonId;
     private String imagePath;
     private double width;
     private double height;
@@ -15,8 +13,8 @@ public class ButtonInfo {
     public ButtonInfo() {
     }
 
-    public ButtonInfo(String id, String imagePath, double width, double height) {
-        this.id = id;
+    public ButtonInfo(String buttonId, String imagePath, double width, double height) {
+        this.buttonId = buttonId;
         this.imagePath = imagePath;
         this.width = width;
         this.height = height;
@@ -30,12 +28,12 @@ public class ButtonInfo {
         this.width = width;
     }
 
-    public String getId() {
-        return id;
+    public String getButtonId() {
+        return buttonId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setButtonId(String buttonId) {
+        this.buttonId = buttonId;
     }
 
     public String getImagePath() {
@@ -57,7 +55,7 @@ public class ButtonInfo {
     @Override
     public String toString() {
         return "ButtonInfo{" +
-                "id='" + id + '\'' +
+                "buttonId='" + buttonId + '\'' +
                 ", imagePath='" + imagePath + '\'' +
                 ", width=" + width +
                 ", height=" + height +

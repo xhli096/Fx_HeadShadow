@@ -5,4 +5,15 @@
     <mapper namespace="stu.lxh.fx_headshadow.dao.PatientInfoMapper">
     <!-- namespace:名称空间:动态绑定则指定为接口的全类名,只在MySQL环境下才使用的SQL  -->
 
+    <select id="getPreDayPatients" resultType="stu.lxh.fx_headshadow.entity.Patient">
+
+    </select>
+
+    <select id="getAllPatients" resultType="stu.lxh.fx_headshadow.entity.Patient">
+        SELECT * FROM patient_info
+    </select>
+
+    <select id="getPatientImageInfo" resultType="stu.lxh.fx_headshadow.entity.ButtonInfo" parameterType="String">
+        SELECT buttonId, imagePath, width, height  FROM patient_x_image_info WHERE patientCardNumber = #{patientCardNumber}
+    </select>
 </mapper>

@@ -19,11 +19,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import net.sf.json.JSONObject;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.lxh.fx_headshadow.dao.AddPatientViewMapper;
+import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
 import stu.lxh.fx_headshadow.util.PropertiesUtil;
@@ -32,7 +34,9 @@ import stu.lxh.fx_headshadow.util.ThumbnailatorUtil;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -48,6 +52,8 @@ public class MainViewController {
 
     @FXML
     private ListView<Label> patientInformationListView;
+    @FXML
+    private ListView<Label> allPatientListView;
 
     private Stage addNewPatientStage;
     private Stage headShadowStage;
@@ -57,11 +63,17 @@ public class MainViewController {
 
     private Map<String, Button> imageButtonMap;
     private List<Label> labelList;
+    private List<Label> allPatientLabelList;
 
     /**
      * 病人的Map，病历号 ： 病人实例对象
      */
     private static Map<String, Patient> patientMap;
+    private static Map<String, Patient> preDayPatientMap;
+    private static Map<String, Patient> nextDayPatientMap;
+    private static Map<String, Patient> operationPatientMap;
+
+    private static Map<String, Patient> allPatientsMap;
 
     @FXML
     private Label patientNameLabel;
@@ -87,19 +99,28 @@ public class MainViewController {
     private Button nextDayButton;
 
     private Patient currentPatient;
+    // 记录前一天
+    private LocalDate preDay;
+    // 记录后一天
+    private LocalDate nextDay;
 
     private static Map<String, Map<String, Button>> patientPhotoPathMap;
 
     static {
-        patientMap = new HashMap<>();
+        patientMap = new LinkedHashMap<>();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
         patientPhotoPathMap = new LinkedHashMap<>();
+        preDayPatientMap = new LinkedHashMap<>();
+        nextDayPatientMap = new LinkedHashMap<>();
+        operationPatientMap = new LinkedHashMap<>();
+        allPatientsMap = new LinkedHashMap<>();
     }
 
     @FXML
     public void initialize() {
         imageButtonMap = new LinkedHashMap<>();
         labelList = new ArrayList<>();
+        allPatientLabelList = new ArrayList<>();
         StageManager.addController("MainViewController", this);
         init();
         dealAction();
@@ -144,25 +165,167 @@ public class MainViewController {
 
     private void init() {
         datePicker.setValue(LocalDate.now());
+        preDay = LocalDate.now().minusDays(1);
+        nextDay = LocalDate.now().plusDays(1);
         // 添加一个根据listview初始化的方法
         initListView();
+        // 初始化全部患者列表
+        initAllPatientsListView();
     }
 
-    private void initListView() {
-        if(patientMap.size() >= 1) {
-            // 恢复listview
-            //labelList.clear();
-            for(String key : patientMap.keySet()) {
-                Patient patient = patientMap.get(key);
-                Label label = new Label(patient.getPatientName() + "  " + patient.getPatientCardNumber());
-                labelList.add(label);
-            }
-            ObservableList<Label> labels = FXCollections.observableArrayList(labelList);
-            System.out.println(labels.size());
-            patientInformationListView.setItems(null);
-            patientInformationListView.setItems(labels);
-            System.out.println("lalalalalala");
+    /**
+     * 初始化所有病人列表
+     */
+    private void initAllPatientsListView() {
+        allPatientLabelList.clear();
+        System.out.println("allPatientsMap.size():" + allPatientsMap.size());
+
+        for(String key : allPatientsMap.keySet()) {
+            Patient patient = patientMap.get(key);
+            Label label = new Label(patient.getPatientName() + "  " + patient.getPatientCardNumber());
+            allPatientLabelList.add(label);
         }
+        ObservableList<Label> labels = FXCollections.observableArrayList(allPatientLabelList);
+        System.out.println(labels.size());
+        patientInformationListView.setItems(null);
+        patientInformationListView.setItems(labels);
+        patientInformationListView.getSelectionModel().selectFirst();
+        System.out.println("allPatientsMap.size():" + allPatientsMap.size());
+        if(allPatientsMap.size() >= 1) {
+            String key = (String) allPatientsMap.keySet().toArray()[0];
+            String text = allPatientsMap.get(key).getPatientCardNumber();
+            reinitPaitentInfoAndImage(text);
+        }
+    }
+
+    /**
+     * 根据不同的patientMap，初始化病人列表
+     * @param patientMap
+     * patientMap, prePatientMap, nextDayPatient
+     */
+    private void initPatientList(Map<String, Patient> patientMap) {
+        labelList.clear();
+        for(String key : patientMap.keySet()) {
+            Patient patient = patientMap.get(key);
+            Label label = new Label(patient.getPatientName() + "  " + patient.getPatientCardNumber());
+            labelList.add(label);
+        }
+        ObservableList<Label> labels = FXCollections.observableArrayList(labelList);
+        System.out.println(labels.size());
+        patientInformationListView.setItems(null);
+        patientInformationListView.setItems(labels);
+        patientInformationListView.getSelectionModel().selectFirst();
+        if(patientMap.size() >= 0) {
+            String key = (String) patientMap.keySet().toArray()[0];
+            String text = patientMap.get(key).getPatientCardNumber();
+            reinitPaitentInfoAndImage(text);
+        }
+    }
+
+    /**
+     * 软件启动，初始化listView；
+     */
+    private void initListView() {
+        // 恢复listview
+        operationPatientMap = patientMap;
+        initPatientList(patientMap);
+    }
+
+    /**
+     * 读取日志恢复前一天或后一天的列表
+     * @param localDate
+     * @param string
+     */
+    private void readLog(LocalDate localDate, String string) {
+        Map<String, Patient> patientMap = new LinkedHashMap<>();
+        try {
+            File logDir = new File("resources/log");
+            String filePath = logDir + "\\" + localDate + ".log";
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String str;
+            boolean nextIsPatient = false;
+            boolean nextIsPatientImage = false;
+            // 按行读取字符串
+            while ((str = bufferedReader.readLine()) != null) {
+                // 设置count的值
+                if(str.startsWith("病历序号：")){
+                    int count = Integer.parseInt(str.substring(str.indexOf("：")+1));
+                    AddPatientViewController.setCount(count);
+                }
+                if(str.startsWith("病人信息：")) {
+                    nextIsPatient = true;
+                    continue;
+                }
+                if(str.startsWith("病人图像信息：")) {
+                    nextIsPatientImage = true;
+                    nextIsPatient = false;
+                    continue;
+                }
+
+                // 进入处理病人信息
+                if(nextIsPatient) {
+                    JSONObject jsonObject = JSONObject.fromObject(str);
+                    Patient patient = (Patient) JSONObject.toBean(jsonObject, Patient.class);
+                    patientMap.put(patient.getPatientCardNumber(), patient);
+                    System.out.println(patient);
+                }
+                if(nextIsPatientImage) {
+                    String cardNumber = str.split(" ")[0];
+                    int count = Integer.parseInt(str.split(" ")[1]);
+                    System.out.println("cardNumber:" + cardNumber);
+                    for(int i = 0; i < count; i++) {
+                        if((str = bufferedReader.readLine()) != null) {
+                            JSONObject jsonObject = JSONObject.fromObject(str.split(" ")[1]);
+                            ButtonInfo buttonInfo = (ButtonInfo) JSONObject.toBean(jsonObject, ButtonInfo.class);
+                            patientMap.get(cardNumber).getPatientPhotoPathMap().put(str.split(" ")[0], buttonInfo);
+                        }
+                    }
+                }
+            }
+
+            // 至此读取完整的日志信息，可以恢复列表
+            if(string.equals("pre")) {
+                MainViewController.setPreDayPatientMap(patientMap);
+            } else if(string.equals("next")) {
+                MainViewController.setNextDayPatientMap(patientMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 初始化前一天病人列表信息
+     */
+    private void initPreDayPatientListView() {
+        // 首先来查询，先清除，再查询
+        preDayPatientMap.clear();
+        readLog(preDay, "pre");
+
+        for(String key : preDayPatientMap.keySet()) {
+            System.out.println(preDayPatientMap.get(key));
+        }
+
+        operationPatientMap = preDayPatientMap;
+        initPatientList(preDayPatientMap);
+    }
+
+    /**
+     * 初始化后一天病人列表信息
+     */
+    private void initNextDayPatientListView() {
+        // 首先来查询，先清除，再查询
+        nextDayPatientMap.clear();
+        readLog(nextDay, "next");
+
+        for(String key : preDayPatientMap.keySet()) {
+            System.out.println(preDayPatientMap.get(key));
+        }
+
+        operationPatientMap = nextDayPatientMap;
+        initPatientList(nextDayPatientMap);
     }
 
     private void dealAction() {
@@ -235,7 +398,7 @@ public class MainViewController {
                         currentPatient.addPatientPhotoPath(fileName, buttonInfo);
                         imageInfoPane.getChildren().add(button);
                         // 对数据库中的图像信息进行更新
-                        updatePatientImageInfo(currentPatient, oriImagePath);
+                        updatePatientImageInfo(currentPatient, buttonInfo);
                     }
                     // 每一次都进行更新，加入到Map中去
                     addPatientMap(currentPatient);
@@ -293,46 +456,99 @@ public class MainViewController {
             if(newValue != null) {
                 String text = newValue.getText();
                 String cardNumber = text.split("  ")[1];
-                Patient switchPatient = patientMap.get(cardNumber);
-                currentPatient = switchPatient;
-
-                // TODO 切换patient，基本信息的内容
-                setLabelText(switchPatient);
-                // TODO 设置图像信息，将原来的patient的图像信息清除，设置新的patient的图像信息
-                imageInfoPane.getChildren().clear();
-                Map<String, ButtonInfo> buttonInfoMap = switchPatient.getPatientPhotoPathMap();
-                if(buttonInfoMap != null && buttonInfoMap.size() >= 1) {
-                    for(String key : buttonInfoMap.keySet()) {
-                        try {
-                            ButtonInfo buttonInfo = buttonInfoMap.get(key);
-                            Button button = new Button();
-                            button.setPrefSize(buttonInfo.getWidth(), buttonInfo.getHeight());
-                            button.setGraphic(new ImageView(new Image(new FileInputStream(new File(buttonInfo.getImagePath())))));
-                            button.setId(buttonInfo.getId());
-                            imageInfoPane.getChildren().add(button);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+                reinitPaitentInfoAndImage(cardNumber);
             }
         });
 
         preDayButton.setOnMouseClicked(event -> {
             // 查询当天的病人，并进行渲染，dao层
+            // datePicker设置为前一天
+            datePicker.setValue(preDay);
+            if(preDay.toString().equals(LocalDate.now().toString())) {
+                initListView();
+            } else {
+                // 从日志文件中读取，比数据库中要快。
+                initPreDayPatientListView();
+            }
+
+            preDay = preDay.minusDays(1);
+            nextDay = nextDay.minusDays(1);
         });
 
         nextDayButton.setOnMouseClicked(event -> {
             // 查询当天的病人，并进行渲染，dao层
+            // datePicker设置为后一天
+            datePicker.setValue(nextDay);
+            System.out.println("nextDay.toString().equals(LocalDate.now().toString()):" + nextDay.toString().equals(LocalDate.now().toString()));
+            if(nextDay.toString().equals(LocalDate.now().toString())) {
+                initListView();
+            } else {
+                // 从日志文件中读取，比数据库中要快。
+                initNextDayPatientListView();
+            }
+
+            preDay = preDay.plusDays(1);
+            nextDay = nextDay.plusDays(1);
         });
     }
 
-    private void updatePatientImageInfo(Patient patient, String photoPath) {
+    /**
+     * 重新初始化病人信息和病人图像信息
+     */
+    private void reinitPaitentInfoAndImage(String cardNumber) {
+        // 设置一个optionMap，进行相关的转换。
+        Patient switchPatient = operationPatientMap.get(cardNumber);
+        currentPatient = switchPatient;
+
+        // TODO 切换patient，基本信息的内容
+        setLabelText(switchPatient);
+        // TODO 设置图像信息，将原来的patient的图像信息清除，设置新的patient的图像信息
+        imageInfoPane.getChildren().clear();
+        Map<String, ButtonInfo> buttonInfoMap = switchPatient.getPatientPhotoPathMap();
+        if(buttonInfoMap != null && buttonInfoMap.size() >= 1) {
+            for(String key : buttonInfoMap.keySet()) {
+                try {
+                    ButtonInfo buttonInfo = buttonInfoMap.get(key);
+                    Button button = new Button();
+                    button.setPrefSize(buttonInfo.getWidth(), buttonInfo.getHeight());
+                    button.setGraphic(new ImageView(new Image(new FileInputStream(new File(buttonInfo.getImagePath())))));
+                    button.setId(buttonInfo.getButtonId());
+                    imageInfoPane.getChildren().add(button);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void recoveryListView(String string) {
+        if(string.equals("pre")) {
+            preDayPatientMap = new LinkedHashMap<>();
+        } else if(string.equals("next")) {
+            nextDayPatientMap = new LinkedHashMap<>();
+        }
+    }
+
+    private Date parseLocalDateToDate(LocalDate localDate) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zoneId).toInstant();
+
+        Date result = Date.from(instant);
+
+        return result;
+    }
+
+    /**
+     * 将某个病人的图像信息更新到数据库中
+     * @param patient
+     * @param buttonInfo
+     */
+    private void updatePatientImageInfo(Patient patient, ButtonInfo buttonInfo) {
         SqlSession sqlSession = null;
         try {
             sqlSession = getSqlSession();
             AddPatientViewMapper addPatientViewMapper = sqlSession.getMapper(AddPatientViewMapper.class);
-            addPatientViewMapper.insertPatientPhotoPath(patient.getPatientCardNumber(), photoPath);
+            addPatientViewMapper.insertPatientPhotoPath(patient.getPatientCardNumber(), buttonInfo);
 
             sqlSession.commit();
         } catch (IOException e) {
@@ -354,6 +570,10 @@ public class MainViewController {
         }
     }
 
+    /**
+     * 增加某个病人
+     * @param patient
+     */
     public void addPatient(Patient patient) {
         addPatientMap(patient);
         setLabelText(patient);
@@ -397,5 +617,29 @@ public class MainViewController {
 
     public void setPatientInformationListView(ListView<Label> patientInformationListView) {
         this.patientInformationListView = patientInformationListView;
+    }
+
+    public static Map<String, Patient> getPreDayPatientMap() {
+        return preDayPatientMap;
+    }
+
+    public static void setPreDayPatientMap(Map<String, Patient> preDayPatientMap) {
+        MainViewController.preDayPatientMap = preDayPatientMap;
+    }
+
+    public static Map<String, Patient> getNextDayPatientMap() {
+        return nextDayPatientMap;
+    }
+
+    public static void setNextDayPatientMap(Map<String, Patient> nextDayPatientMap) {
+        MainViewController.nextDayPatientMap = nextDayPatientMap;
+    }
+
+    public static Map<String, Patient> getAllPatientsMap() {
+        return allPatientsMap;
+    }
+
+    public static void setAllPatientsMap(Map<String, Patient> allPatientsMap) {
+        MainViewController.allPatientsMap = allPatientsMap;
     }
 }

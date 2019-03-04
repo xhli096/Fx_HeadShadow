@@ -10,14 +10,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import net.sf.json.JSONObject;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.lxh.fx_headshadow.controller.AddPatientViewController;
 import stu.lxh.fx_headshadow.controller.MainViewController;
+import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,54 +45,10 @@ public class Main extends Application {
         // TODO 读取日志文件，恢复列表等
         patientMap = new LinkedHashMap<>();
         try {
-            File logDir = new File("resources/log");
-            String filePath = logDir + "\\" + LocalDate.now() + ".log";
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String str;
-            boolean nextIsPatient = false;
-            boolean nextIsPatientImage = false;
-            // 按行读取字符串
-            while ((str = bufferedReader.readLine()) != null) {
-                // 设置count的值
-                if(str.startsWith("病历序号：")){
-                    int count = Integer.parseInt(str.substring(str.indexOf("：")+1));
-                    AddPatientViewController.setCount(count);
-                }
-                if(str.startsWith("病人信息：")) {
-                    nextIsPatient = true;
-                    continue;
-                }
-                if(str.startsWith("病人图像信息：")) {
-                    nextIsPatientImage = true;
-                    nextIsPatient = false;
-                    continue;
-                }
-
-                // 进入处理病人信息
-                if(nextIsPatient) {
-                    JSONObject jsonObject = JSONObject.fromObject(str);
-                    Patient patient = (Patient) JSONObject.toBean(jsonObject, Patient.class);
-                    patientMap.put(patient.getPatientCardNumber(), patient);
-                    System.out.println(patient);
-                }
-                if(nextIsPatientImage) {
-                    cardNumber = str.split(" ")[0];
-                    count = Integer.parseInt(str.split(" ")[1]);
-                    System.out.println("cardNumber:" + cardNumber);
-                    for(int i = 0; i < count; i++) {
-                        if((str = bufferedReader.readLine()) != null) {
-                            JSONObject jsonObject = JSONObject.fromObject(str.split(" ")[1]);
-                            ButtonInfo buttonInfo = (ButtonInfo) JSONObject.toBean(jsonObject, ButtonInfo.class);
-                            patientMap.get(cardNumber).getPatientPhotoPathMap().put(str.split(" ")[0], buttonInfo);
-                        }
-                    }
-                }
-            }
-
+            readTodayLog();
             // 至此读取完整的日志信息，可以恢复列表
             MainViewController.setPatientMap(patientMap);
+            initAllPatient();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,6 +76,122 @@ public class Main extends Application {
             this.primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 根据配置文件生成SqlSessionFactory
+     * @return
+     * @throws IOException
+     */
+    private SqlSessionFactory getSqlSessionFactory() throws IOException {
+        String resource = "config/mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        return sqlSessionFactory;
+    }
+
+    /**
+     * 获得sqlSession
+     * @return
+     * @throws IOException
+     */
+    private SqlSession getSqlSession() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        return sqlSession;
+    }
+
+    /**
+     * 初始化全部病人信息，从数据库中读取相关信息
+     */
+    private void initAllPatient() {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = getSqlSession();
+            PatientInfoMapper patientInfoMapper = sqlSession.getMapper(PatientInfoMapper.class);
+            List<Patient> allPatients = patientInfoMapper.getAllPatients();
+            sqlSession.commit();
+
+            for(Patient patient : allPatients) {
+               sqlSession = getSqlSession();
+               patientInfoMapper = sqlSession.getMapper(PatientInfoMapper.class);
+               List<ButtonInfo> buttonInfoList = patientInfoMapper.getPatientImageInfo(patient.getPatientCardNumber());
+               sqlSession.commit();
+
+               Map<String, ButtonInfo> buttonInfoMap = new LinkedHashMap<>();
+               for(ButtonInfo buttonInfo : buttonInfoList) {
+                   buttonInfoMap.put(buttonInfo.getButtonId(), buttonInfo);
+               }
+               patient.setPatientPhotoPathMap(buttonInfoMap);
+            }
+            Map<String, Patient> allPatientsMap = new LinkedHashMap<>();
+            for(Patient patient : allPatients) {
+                allPatientsMap.put(patient.getPatientCardNumber(), patient);
+            }
+
+//            for(String k : allPatientsMap.keySet()) {
+//                System.out.println(allPatientsMap.get(k));
+//            }
+            MainViewController.setAllPatientsMap(allPatientsMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    /**
+     * 读取日志文件恢复当日的病人列表信息
+     * @throws IOException
+     */
+    private void readTodayLog() throws IOException {
+        File logDir = new File("resources/log");
+        String filePath = logDir + "\\" + LocalDate.now() + ".log";
+        FileReader fileReader = new FileReader(filePath);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String str;
+        boolean nextIsPatient = false;
+        boolean nextIsPatientImage = false;
+        // 按行读取字符串
+        while ((str = bufferedReader.readLine()) != null) {
+            // 设置count的值
+            if(str.startsWith("病历序号：")){
+                int count = Integer.parseInt(str.substring(str.indexOf("：")+1));
+                AddPatientViewController.setCount(count);
+            }
+            if(str.startsWith("病人信息：")) {
+                nextIsPatient = true;
+                continue;
+            }
+            if(str.startsWith("病人图像信息：")) {
+                nextIsPatientImage = true;
+                nextIsPatient = false;
+                continue;
+            }
+
+            // 进入处理病人信息
+            if(nextIsPatient) {
+                JSONObject jsonObject = JSONObject.fromObject(str);
+                Patient patient = (Patient) JSONObject.toBean(jsonObject, Patient.class);
+                patientMap.put(patient.getPatientCardNumber(), patient);
+                System.out.println(patient);
+            }
+            if(nextIsPatientImage) {
+                cardNumber = str.split(" ")[0];
+                count = Integer.parseInt(str.split(" ")[1]);
+                System.out.println("cardNumber:" + cardNumber);
+                for(int i = 0; i < count; i++) {
+                    if((str = bufferedReader.readLine()) != null) {
+                        JSONObject jsonObject = JSONObject.fromObject(str.split(" ")[1]);
+                        ButtonInfo buttonInfo = (ButtonInfo) JSONObject.toBean(jsonObject, ButtonInfo.class);
+                        patientMap.get(cardNumber).getPatientPhotoPathMap().put(str.split(" ")[0], buttonInfo);
+                    }
+                }
+            }
         }
     }
 

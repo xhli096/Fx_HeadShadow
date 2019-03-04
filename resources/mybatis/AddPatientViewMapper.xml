@@ -81,7 +81,7 @@
     </insert>
 
     <insert id="insertPatientPhotoPath">
-        INSERT INTO patient_x_image_info (patientCardNumber, patientXImagePath)
-        VALUES (#{patientCardNumber}, #{photoPath})
+        INSERT INTO patient_x_image_info (patientCardNumber, buttonId, imagePath, width, height)
+        VALUES (#{patientCardNumber}, #{buttonInfo.id}, #{buttonInfo.imagePath}, #{buttonInfo.width}, #{buttonInfo.height})
     </insert>
 </mapper>
