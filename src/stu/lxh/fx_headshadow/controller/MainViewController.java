@@ -25,7 +25,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.lxh.fx_headshadow.dao.AddPatientViewMapper;
-import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
 import stu.lxh.fx_headshadow.util.PropertiesUtil;
@@ -181,19 +180,19 @@ public class MainViewController {
         System.out.println("allPatientsMap.size():" + allPatientsMap.size());
 
         for(String key : allPatientsMap.keySet()) {
-            Patient patient = patientMap.get(key);
+            Patient patient = allPatientsMap.get(key);
             Label label = new Label(patient.getPatientName() + "  " + patient.getPatientCardNumber());
             allPatientLabelList.add(label);
         }
         ObservableList<Label> labels = FXCollections.observableArrayList(allPatientLabelList);
         System.out.println(labels.size());
-        patientInformationListView.setItems(null);
-        patientInformationListView.setItems(labels);
-        patientInformationListView.getSelectionModel().selectFirst();
-        System.out.println("allPatientsMap.size():" + allPatientsMap.size());
+        allPatientListView.setItems(null);
+        allPatientListView.setItems(labels);
+        allPatientListView.getSelectionModel().selectFirst();
         if(allPatientsMap.size() >= 1) {
             String key = (String) allPatientsMap.keySet().toArray()[0];
             String text = allPatientsMap.get(key).getPatientCardNumber();
+            operationPatientMap = allPatientsMap;
             reinitPaitentInfoAndImage(text);
         }
     }
@@ -215,9 +214,11 @@ public class MainViewController {
         patientInformationListView.setItems(null);
         patientInformationListView.setItems(labels);
         patientInformationListView.getSelectionModel().selectFirst();
-        if(patientMap.size() >= 0) {
+        if(patientMap.size() >= 1) {
             String key = (String) patientMap.keySet().toArray()[0];
             String text = patientMap.get(key).getPatientCardNumber();
+            // 设置当前操作的Map为所有的病人map
+            operationPatientMap = this.patientMap;
             reinitPaitentInfoAndImage(text);
         }
     }
@@ -227,7 +228,6 @@ public class MainViewController {
      */
     private void initListView() {
         // 恢复listview
-        operationPatientMap = patientMap;
         initPatientList(patientMap);
     }
 
@@ -456,6 +456,16 @@ public class MainViewController {
             if(newValue != null) {
                 String text = newValue.getText();
                 String cardNumber = text.split("  ")[1];
+                operationPatientMap = this.patientMap;
+                reinitPaitentInfoAndImage(cardNumber);
+            }
+        });
+
+        allPatientListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null) {
+                String text = newValue.getText();
+                String cardNumber = text.split("  ")[1];
+                operationPatientMap = this.allPatientsMap;
                 reinitPaitentInfoAndImage(cardNumber);
             }
         });
@@ -497,8 +507,10 @@ public class MainViewController {
      */
     private void reinitPaitentInfoAndImage(String cardNumber) {
         // 设置一个optionMap，进行相关的转换。
+        System.out.println("operationPatientMap.size() :" + operationPatientMap.size());
         Patient switchPatient = operationPatientMap.get(cardNumber);
         currentPatient = switchPatient;
+        System.out.println("switchPatient == null:" + (switchPatient == null));
 
         // TODO 切换patient，基本信息的内容
         setLabelText(switchPatient);
@@ -589,10 +601,13 @@ public class MainViewController {
 
     private void setLabelText(Patient patient) {
         // 在基本信息显示处将患者基本信息显示出来，并在左边的病人列表中显示该患者。
+        System.out.println("patient:" + (patient == null));
         patientNameLabel.setText(patient.getPatientName());
         patientCardNumberLabel.setText(patient.getPatientCardNumber());
         ageLabel.setText(String.valueOf(patient.getAge()));
-        firstConsultationTimeLabel.setText(String.valueOf(sdf.format(patient.getFirstConsultationTime())));
+        if(patient.getFirstConsultationTime() != null) {
+            firstConsultationTimeLabel.setText(String.valueOf(sdf.format(patient.getFirstConsultationTime())));
+        }
         genderLabel.setText(patient.getGender());
         dateOfBirthLabel.setText(sdf.format(patient.getDateOfBirth()));
         patientContactPhoneLabel.setText(patient.getPatientContactPhone());

@@ -20,14 +20,6 @@ public class ButtonInfo {
         this.height = height;
     }
 
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
     public String getButtonId() {
         return buttonId;
     }
@@ -42,6 +34,14 @@ public class ButtonInfo {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
     }
 
     public double getHeight() {

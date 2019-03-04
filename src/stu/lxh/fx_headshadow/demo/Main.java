@@ -48,6 +48,11 @@ public class Main extends Application {
             readTodayLog();
             // 至此读取完整的日志信息，可以恢复列表
             MainViewController.setPatientMap(patientMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
             initAllPatient();
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,10 +136,7 @@ public class Main extends Application {
             for(Patient patient : allPatients) {
                 allPatientsMap.put(patient.getPatientCardNumber(), patient);
             }
-
-//            for(String k : allPatientsMap.keySet()) {
-//                System.out.println(allPatientsMap.get(k));
-//            }
+            System.out.println("allPatientMap.size() : " + allPatientsMap.size());
             MainViewController.setAllPatientsMap(allPatientsMap);
         } catch (IOException e) {
             e.printStackTrace();

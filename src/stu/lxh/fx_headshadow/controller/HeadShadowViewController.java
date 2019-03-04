@@ -478,6 +478,7 @@ public class HeadShadowViewController {
 
         NAAngleCheckBox.setOnMouseClicked(event -> {
             if(NAAngleCheckBox.isSelected()) {
+
             }
         });
 
