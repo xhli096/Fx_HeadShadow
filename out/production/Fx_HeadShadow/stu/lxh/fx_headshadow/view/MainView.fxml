@@ -19,7 +19,18 @@
    <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="28.0" layoutY="88.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxWidth="80.0" minWidth="-Infinity" prefHeight="398.0" prefWidth="80.0" />
+          <AnchorPane maxWidth="80.0" minWidth="-Infinity" prefHeight="398.0" prefWidth="80.0">
+               <children>
+                  <VBox prefHeight="398.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="激活">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="19.0" right="10.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
           <AnchorPane minWidth="-Infinity" prefHeight="398.0" prefWidth="503.0">
                <children>
                   <SplitPane dividerPositions="0.29797979797979796" layoutX="119.0" layoutY="98.0" prefHeight="398.0" prefWidth="503.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
