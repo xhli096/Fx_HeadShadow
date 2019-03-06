@@ -56,6 +56,7 @@ public class MainViewController {
 
     private Stage addNewPatientStage;
     private Stage headShadowStage;
+    private Stage activationStage;
 
     private static Stage primaryStage;
     private static SimpleDateFormat sdf;
@@ -96,6 +97,9 @@ public class MainViewController {
     private Button preDayButton;
     @FXML
     private Button nextDayButton;
+
+    @FXML
+    private Button activationButton;
 
     private Patient currentPatient;
     // 记录前一天
@@ -329,6 +333,9 @@ public class MainViewController {
     }
 
     private void dealAction() {
+        /**
+         * 添加新的患者
+         */
         addNewPatientButton.addEventFilter(MouseEvent.ANY, event -> {
             if(event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 try {
@@ -356,6 +363,9 @@ public class MainViewController {
             }
         });
 
+        /**
+         * 导入图像按钮
+         */
         manualImport.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("导入图像");
@@ -406,6 +416,9 @@ public class MainViewController {
             }
         });
 
+        /**
+         * 点击某一个按钮，生成头影标定的页面
+         */
         imageInfoPane.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             ObservableList<Node> children = imageInfoPane.getChildren();
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -451,6 +464,9 @@ public class MainViewController {
             }
         });
 
+        /**
+         * 点击患者列表
+         */
         // 选中的某一个label为newValue的Label
         patientInformationListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {
@@ -461,6 +477,9 @@ public class MainViewController {
             }
         });
 
+        /**
+         * 全部患者的列表
+         */
         allPatientListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {
                 String text = newValue.getText();
@@ -470,6 +489,9 @@ public class MainViewController {
             }
         });
 
+        /**
+         * 点击前一天按钮
+         */
         preDayButton.setOnMouseClicked(event -> {
             // 查询当天的病人，并进行渲染，dao层
             // datePicker设置为前一天
@@ -485,6 +507,9 @@ public class MainViewController {
             nextDay = nextDay.minusDays(1);
         });
 
+        /**
+         * 点击下一天按钮
+         */
         nextDayButton.setOnMouseClicked(event -> {
             // 查询当天的病人，并进行渲染，dao层
             // datePicker设置为后一天
@@ -499,6 +524,36 @@ public class MainViewController {
 
             preDay = preDay.plusDays(1);
             nextDay = nextDay.plusDays(1);
+        });
+
+        /**
+         * 点击激活按钮
+         */
+        activationButton.setOnMouseClicked(event -> {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+
+            Parent root = null;
+            try {
+                fxmlLoader.setLocation(MainViewController.class.getResource("/stu/lxh/fx_headshadow/view/ActivationView.fxml"));
+                fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+                root = fxmlLoader.load();
+
+                Scene scene = new Scene(root, 600, 400);
+
+                Screen screen = Screen.getPrimary();
+                Rectangle2D bounds = screen.getVisualBounds();
+
+                activationStage = new Stage();
+                activationStage.initModality(Modality.APPLICATION_MODAL);
+                activationStage.setScene(scene);
+
+                // 将子窗口保存在StageManager的map中
+                StageManager.addStage("activationStage", activationStage);
+                StageManager.addController("MainViewStage", this);
+                activationStage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 

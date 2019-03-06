@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="stu.lxh.fx_headshadow.view.ActivationView"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stu.lxh.fx_headshadow.controller.ActivationViewController">
+   <children>
+      <Label layoutX="64.0" layoutY="52.0" text="请输入序列号或注册码。">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="95.0" layoutY="125.0" prefHeight="23.0" prefWidth="450.0" />
+      <Label layoutX="95.0" layoutY="167.0" text="请联系软件管理员获取序列或注册码" />
+      <Button layoutX="349.0" layoutY="314.0" mnemonicParsing="false" text="确  定">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="461.0" layoutY="314.0" mnemonicParsing="false" text="取  消">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Hyperlink fx:id="getLicenseHyperlink" layoutX="53.0" layoutY="255.0" text="获取序列号" />
+   </children>
 </AnchorPane>
