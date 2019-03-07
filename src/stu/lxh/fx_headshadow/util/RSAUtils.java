@@ -1,5 +1,8 @@
 package stu.lxh.fx_headshadow.util;
 
+import javax.crypto.Cipher;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -108,5 +111,193 @@ public class RSAUtils {
         return signature.verify(Base64Utils.decode(sign));
     }
 
+    /**
+     * 私钥解密
+     * @param encryptedData     已加密的数据
+     * @param privateKey        私钥（BASE64解码）
+     * @return
+     * @throws Exception
+     */
+    public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey) throws Exception {
+        byte[] keyBytes = Base64Utils.decode(privateKey);
 
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+
+        Key privateKe = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.DECRYPT_MODE, privateKe);
+
+        int inputLen = encryptedData.length;
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        int offset = 0;
+        byte[] cache;
+        int i = 0;
+
+        // 对数据分段解密
+        while (inputLen - offset > 0) {
+            if(inputLen - offset > MAX_DECRYPT_BLOCK) {
+                cache = cipher.doFinal(encryptedData, offset, MAX_DECRYPT_BLOCK);
+            } else {
+                cache = cipher.doFinal(encryptedData, offset, inputLen - offset);
+            }
+
+            outputStream.write(cache, 0, cache.length);
+            i++;
+
+            offset = i * MAX_DECRYPT_BLOCK;
+        }
+
+        byte[] decryptedData = outputStream.toByteArray();
+        outputStream.close();
+
+        return decryptedData;
+    }
+
+    /**
+     * 公钥解密
+     * @param encryptedData     已加密数据
+     * @param publicKey         公钥（BASE64编码）
+     * @return
+     * @throws Exception
+     */
+    public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey) throws Exception {
+        byte[] keyBytes = Base64Utils.decode(publicKey);
+
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+
+        Key publicKe = keyFactory.generatePublic(x509EncodedKeySpec);
+        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.DECRYPT_MODE, publicKe);
+
+        int inputLen = encryptedData.length;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        int offSet = 0;
+        byte[] cache;
+        int i = 0;
+
+        // 对数据分段解密
+        while (inputLen - offSet > 0) {
+            if(inputLen - offSet > MAX_DECRYPT_BLOCK) {
+                cache = cipher.doFinal(encryptedData, offSet, MAX_DECRYPT_BLOCK);
+            } else {
+                cache = cipher.doFinal(encryptedData, offSet, inputLen - offSet);
+            }
+
+            outputStream.write(cache, 0, cache.length);
+            i++;
+            offSet = i * MAX_DECRYPT_BLOCK;
+        }
+
+        byte[] decryptedData = outputStream.toByteArray();
+        outputStream.close();
+
+        return decryptedData;
+    }
+
+    /**
+     * 公钥加密
+     * @param data          源数据
+     * @param publicKey     公钥（base64编码）
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encryptByPublicKey(byte[] data, String publicKey) throws Exception {
+        byte[] keyBytes = Base64Utils.decode(publicKey);
+
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        Key publicKe = keyFactory.generatePublic(x509EncodedKeySpec);
+
+        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.ENCRYPT_MODE, publicKe);
+
+        int inputLen = data.length;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        int offset = 0;
+        byte[] cache;
+        int i = 0;
+
+        // 对数据分段加密
+        while (inputLen - offset > 0) {
+            if (inputLen - offset > MAX_ENCRYPT_BLOCK) {
+                cache = cipher.doFinal(data, offset, MAX_ENCRYPT_BLOCK);
+            } else {
+                cache = cipher.doFinal(data, offset, inputLen - offset);
+            }
+
+            outputStream.write(cache, 0, cache.length);
+            i++;
+            offset = i * MAX_ENCRYPT_BLOCK;
+        }
+        byte[] encryptedData = outputStream.toByteArray();
+        outputStream.close();
+
+        return encryptedData;
+    }
+
+    /**
+     * 私钥加密
+     * @param data          源数据
+     * @param privateKey    私钥(BASE64编码)
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encryptByPrivateKey(byte[] data, String privateKey) throws Exception {
+        byte[] keyBytes = Base64Utils.decode(privateKey);
+
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        Key privateKe = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+
+        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.ENCRYPT_MODE, privateKe);
+
+        int inputLen = data.length;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        int offset = 0;
+        byte[] cache;
+        int i = 0;
+        // 对数据分段加密
+        while (inputLen - offset > 0) {
+            if (inputLen - offset > MAX_ENCRYPT_BLOCK) {
+                cache = cipher.doFinal(data, offset, MAX_ENCRYPT_BLOCK);
+            } else {
+                cache = cipher.doFinal(data, offset, inputLen - offset);
+            }
+            outputStream.write(cache, 0, cache.length);
+            i++;
+            offset = i * MAX_ENCRYPT_BLOCK;
+        }
+        byte[] encryptedData = outputStream.toByteArray();
+        outputStream.close();
+        return encryptedData;
+    }
+
+    /**
+     * 获取私钥
+     * @param keyMap        密钥对
+     * @return
+     */
+    public static String getPrivateKey(Map<String, Object> keyMap) {
+        Key key = (Key) keyMap.get(PRIVATE_KEY);
+
+        return Base64Utils.encode(key.getEncoded());
+    }
+
+    /**
+     * 获取公钥
+     * @param keyMap        密钥对
+     * @return
+     */
+    public static String getPublicKey(Map<String, Object> keyMap) {
+        Key key = (Key) keyMap.get(PUBLIC_KEY);
+
+        return Base64Utils.encode(key.getEncoded());
+    }
 }
