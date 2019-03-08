@@ -607,8 +607,8 @@ public class MainViewController {
 
     /**
      * 将某个病人的图像信息更新到数据库中
-     * @param patient
-     * @param buttonInfo
+     * @param patient      正在操作的病人
+     * @param buttonInfo    按钮信息
      */
     private void updatePatientImageInfo(Patient patient, ButtonInfo buttonInfo) {
         SqlSession sqlSession = null;
@@ -639,7 +639,7 @@ public class MainViewController {
 
     /**
      * 增加某个病人
-     * @param patient
+     * @param patient   增加的病人
      */
     public void addPatient(Patient patient) {
         addPatientMap(patient);

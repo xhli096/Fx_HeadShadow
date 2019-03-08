@@ -2,15 +2,11 @@ package stu.lxh.fx_headshadow.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+import stu.lxh.fx_headshadow.util.RSAUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 /**
  * Created by LXH on 2019/3/6.
@@ -18,6 +14,19 @@ import java.net.UnknownHostException;
 public class ActivationViewController {
     @FXML
     private Hyperlink getLicenseHyperlink;
+
+    private static String publicKey;
+    private static String privateKey;
+
+    static {
+        try {
+            Map<String, Object> keyMap = RSAUtils.genKeyPair();
+            publicKey = RSAUtils.getPublicKey(keyMap);
+            privateKey = RSAUtils.getPrivateKey(keyMap);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -32,30 +41,57 @@ public class ActivationViewController {
         });
     }
 
+    /**
+     * 使用公钥加密，私钥解密
+     */
     private void generateLicense() {
         // 获取本机的cpu硬盘等型号
+        String cupSerial = getCpuSerial();
+        String localMac = getLocalMac();
+        String osName = getOsName();
+
+        String userSerial = cupSerial + "_" + localMac + "_" + osName + "_";
     }
 
-    private String getLocalMac() throws UnknownHostException, SocketException {
-        InetAddress inetAddress = InetAddress.getLocalHost();
-        byte[] mac = NetworkInterface.getByInetAddress(inetAddress).getHardwareAddress();
+    /**
+     * 获得系统的名称
+     * @return
+     */
+    private String getOsName() {
+        return System.getProperty("os.name");
+    }
 
-        StringBuffer sb = new StringBuffer("");
-        for(int i = 0; i < mac.length; i++) {
-            if(i != 0) {
-                sb.append("-");
-            }
+    /**
+     * 获取当前计算机的物理地址
+     * @return
+     */
+    private String getLocalMac() {
+        String mac = "";
+        String line = "";
 
-            int tmp = mac[i] & 0xff;
-            String str = Integer.toHexString(tmp);
-            if(str.length() == 1) {
-                sb.append("0" + str);
-            } else {
-                sb.append(str);
+        String os = System.getProperty("os.name");
+
+        if(os != null && os.startsWith("Windows")) {
+            try {
+                String command = "cmd.exe /c ipconfig /all";
+                Process process = Runtime.getRuntime().exec(command);
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "GBK"));
+
+                while((line = bufferedReader.readLine()) != null) {
+                    if(line.indexOf("物理地址") != -1) {
+                        int index = line.indexOf(":") + 2;
+                        mac = line.substring(index);
+                        break;
+                    }
+                }
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
-        return sb.toString().toUpperCase();
+        return mac;
     }
 
     /**

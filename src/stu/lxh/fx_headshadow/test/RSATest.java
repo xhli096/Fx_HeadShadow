@@ -1,6 +1,5 @@
 package stu.lxh.fx_headshadow.test;
 
-import stu.lxh.fx_headshadow.controller.ActivationViewController;
 import stu.lxh.fx_headshadow.util.RSAUtils;
 
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +29,6 @@ public class RSATest {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        System.out.println(ActivationViewController.getCpuSerial());
     }
 
     private static void test() throws Exception {
