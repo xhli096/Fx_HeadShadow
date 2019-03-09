@@ -1,11 +1,24 @@
 package stu.lxh.fx_headshadow.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextField;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import stu.lxh.fx_headshadow.dao.ActivationUserMapper;
+import stu.lxh.fx_headshadow.entity.ActivationUser;
+import stu.lxh.fx_headshadow.util.Base64Utils;
+import stu.lxh.fx_headshadow.util.PropertiesUtil;
 import stu.lxh.fx_headshadow.util.RSAUtils;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 /**
@@ -17,6 +30,13 @@ public class ActivationViewController {
 
     private static String publicKey;
     private static String privateKey;
+
+    @FXML
+    private TextField licenseTextField;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private Button cancelButton;
 
     static {
         try {
@@ -34,23 +54,105 @@ public class ActivationViewController {
         dealAction();
     }
 
+    /**
+     * 根据配置文件生成SqlSessionFactory
+     * @return
+     * @throws IOException
+     */
+    private SqlSessionFactory getSqlSessionFactory() throws IOException {
+        String resource = "config/mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        return sqlSessionFactory;
+    }
+
+    /**
+     * 获得sqlSession
+     * @return
+     * @throws IOException
+     */
+    private SqlSession getSqlSession() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        return sqlSession;
+    }
+
     private void dealAction() {
+        /**
+         * 点击获取序列号
+         */
         getLicenseHyperlink.setOnMouseClicked(event -> {
             // 生成license，填入默认位置
+            generateLicense();
+        });
 
+        /**
+         * 点击确定按钮后，需要验证是否符合规定
+         */
+        confirmButton.setOnMouseClicked(event -> {
+            String licence = licenseTextField.getText();
+            if(licence == null || licence.length() == 0) {
+                // 异常，处理
+            }
+
+            // 根据此licence查找、判定是否已经有计算机已经使用过这个licence
         });
     }
 
     /**
      * 使用公钥加密，私钥解密
+     * 将CPU型号、Mac地址和系统名称组成字符串作为数据库的表主键
      */
-    private void generateLicense() {
+    private String generateLicense() {
         // 获取本机的cpu硬盘等型号
         String cupSerial = getCpuSerial();
         String localMac = getLocalMac();
         String osName = getOsName();
 
-        String userSerial = cupSerial + "_" + localMac + "_" + osName + "_";
+        int serialUserYear = Integer.parseInt(PropertiesUtil.getValue("serialUserYear", "config.properties"));
+        long endTime = increaseYears(serialUserYear);
+        String databaseSerialKey = cupSerial + "_" + localMac + "_" + osName;
+        String userSerial = databaseSerialKey + "_" + System.currentTimeMillis() + "_" + endTime;
+
+        byte[] userSerialBytes = new byte[0];
+        try {
+            userSerialBytes = RSAUtils.encryptByPublicKey(userSerial.getBytes(), publicKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String encode = Base64Utils.encode(userSerialBytes);
+        ActivationUser activationUser = new ActivationUser(databaseSerialKey, encode);
+
+        // 将生成的license保存到数据库中
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = getSqlSession();
+            ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
+            activationUserMapper.insertAvtivationLicense(activationUser);
+
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 如果是
+        } finally {
+            sqlSession.close();
+        }
+        licenseTextField.setText(encode);
+
+        System.out.println(encode);
+
+        return encode;
+    }
+
+    private long increaseYears(int serialUserYear) {
+        Calendar calendar = new GregorianCalendar();
+        Date date = new Date();
+
+        calendar.setTime(date);
+        calendar.add(Calendar.YEAR, serialUserYear);
+        return calendar.getTime().getTime();
     }
 
     /**

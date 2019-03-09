@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="stu.lxh.fx_headshadow.dao.ActivationUserMapper">
+    <!-- namespace:名称空间:动态绑定则指定为接口的全类名,只在MySQL环境下才使用的SQL  -->
+
+    <insert id="insertAvtivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">
+        INSERT INTO serial_info (serial, license) VALUES (#{serial}, #{license})
+    </insert>
+</mapper>

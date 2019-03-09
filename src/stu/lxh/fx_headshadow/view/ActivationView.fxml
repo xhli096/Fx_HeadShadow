@@ -14,14 +14,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="95.0" layoutY="125.0" prefHeight="23.0" prefWidth="450.0" />
+      <TextField fx:id="licenseTextField" layoutX="95.0" layoutY="125.0" prefHeight="23.0" prefWidth="450.0" />
       <Label layoutX="95.0" layoutY="167.0" text="请联系软件管理员获取序列或注册码" />
-      <Button layoutX="349.0" layoutY="314.0" mnemonicParsing="false" text="确  定">
+      <Button fx:id="confirmButton" layoutX="349.0" layoutY="314.0" mnemonicParsing="false" text="确  定">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="461.0" layoutY="314.0" mnemonicParsing="false" text="取  消">
+      <Button fx:id="cancelButton" layoutX="461.0" layoutY="314.0" mnemonicParsing="false" text="取  消">
          <font>
             <Font size="18.0" />
          </font>
