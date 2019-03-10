@@ -39,5 +39,6 @@
     <mappers>
         <mapper resource="mybatis/AddPatientViewMapper.xml" />
         <mapper resource="mybatis/PatientInfoMapper.xml" />
+        <mapper resource="mybatis/ActivationUserMapper.xml" />
     </mappers>
 </configuration>

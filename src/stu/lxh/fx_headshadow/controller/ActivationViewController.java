@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.lxh.fx_headshadow.dao.ActivationUserMapper;
 import stu.lxh.fx_headshadow.entity.ActivationUser;
+import stu.lxh.fx_headshadow.entity.Patient;
 import stu.lxh.fx_headshadow.util.Base64Utils;
 import stu.lxh.fx_headshadow.util.PropertiesUtil;
 import stu.lxh.fx_headshadow.util.RSAUtils;
@@ -37,6 +38,15 @@ public class ActivationViewController {
     private Button confirmButton;
     @FXML
     private Button cancelButton;
+
+    /**
+     * 表示尚未激活
+     */
+    private static final int NOT_ACTIVATION = 0;
+    /**
+     * 表示已经激活
+     */
+    private static final int ACTIVATION = 1;
 
     static {
         try {
@@ -89,16 +99,53 @@ public class ActivationViewController {
         });
 
         /**
-         * 点击确定按钮后，需要验证是否符合规定
+         * 点击确定按钮后，需要验证是否符合规定，做数据库的修改
          */
         confirmButton.setOnMouseClicked(event -> {
             String licence = licenseTextField.getText();
             if(licence == null || licence.length() == 0) {
-                // 异常，处理
+                // 异常，处理,弹出窗口提示使用者
             }
 
             // 根据此licence查找、判定是否已经有计算机已经使用过这个licence
-        });
+            SqlSession sqlSession = null;
+            ActivationUser activationUser = null;
+            try {
+                sqlSession = getSqlSession();
+                ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
+                activationUser = activationUserMapper.getSerialByLicense(licence);
+                sqlSession.commit();
+
+                // 说明数据库中有以该序列号的计算机，且没有被激活，更新进行激活
+                if(activationUser != null && activationUser.getSerial() != null && activationUser.getActivation() == NOT_ACTIVATION) {
+                    activationUserMapper.updateActivationLicense(activationUser.getSerial(), ACTIVATION);
+                } else if(activationUser != null && activationUser.getSerial() != null && activationUser.getActivation() == ACTIVATION) {
+                    // 提示用户此序列号已经被使用，无法再次被使用
+                } else if(activationUser == null) {
+                    // 直接插入并进行激活
+                    ActivationUser user  = new ActivationUser();
+                    user.setLicense(licence);
+                    user.setActivation(ACTIVATION);
+                    user.setSerial(getDatabaseSerialKey());
+                    activationUserMapper.insertAndActivationLicense(user);
+                }
+
+                sqlSession.commit();
+            } catch (IOException e) {
+                e.printStackTrace();
+                // 如果是
+            } finally {
+                sqlSession.close();
+            }
+       });
+    }
+
+    private String getDatabaseSerialKey() {
+        String cupSerial = getCpuSerial();
+        String localMac = getLocalMac();
+        String osName = getOsName();
+
+        return cupSerial + "_" + localMac + "_" + osName;
     }
 
     /**
@@ -107,13 +154,9 @@ public class ActivationViewController {
      */
     private String generateLicense() {
         // 获取本机的cpu硬盘等型号
-        String cupSerial = getCpuSerial();
-        String localMac = getLocalMac();
-        String osName = getOsName();
-
         int serialUserYear = Integer.parseInt(PropertiesUtil.getValue("serialUserYear", "config.properties"));
         long endTime = increaseYears(serialUserYear);
-        String databaseSerialKey = cupSerial + "_" + localMac + "_" + osName;
+        String databaseSerialKey = getDatabaseSerialKey();
         String userSerial = databaseSerialKey + "_" + System.currentTimeMillis() + "_" + endTime;
 
         byte[] userSerialBytes = new byte[0];
@@ -130,12 +173,11 @@ public class ActivationViewController {
         try {
             sqlSession = getSqlSession();
             ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
-            activationUserMapper.insertAvtivationLicense(activationUser);
+            activationUserMapper.insertActivationLicense(activationUser);
 
             sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();
-            // 如果是
         } finally {
             sqlSession.close();
         }

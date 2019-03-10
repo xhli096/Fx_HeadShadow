@@ -222,7 +222,7 @@ public class MainViewController {
             String key = (String) patientMap.keySet().toArray()[0];
             String text = patientMap.get(key).getPatientCardNumber();
             // 设置当前操作的Map为所有的病人map
-            operationPatientMap = this.patientMap;
+            operationPatientMap = patientMap;
             reinitPaitentInfoAndImage(text);
         }
     }
@@ -313,6 +313,7 @@ public class MainViewController {
         }
 
         operationPatientMap = preDayPatientMap;
+        System.out.println("preDayPatientMap:" + preDayPatientMap);
         initPatientList(preDayPatientMap);
     }
 
@@ -472,7 +473,6 @@ public class MainViewController {
             if(newValue != null) {
                 String text = newValue.getText();
                 String cardNumber = text.split("  ")[1];
-                operationPatientMap = this.patientMap;
                 reinitPaitentInfoAndImage(cardNumber);
             }
         });
@@ -539,10 +539,6 @@ public class MainViewController {
                 root = fxmlLoader.load();
 
                 Scene scene = new Scene(root, 600, 400);
-
-                Screen screen = Screen.getPrimary();
-                Rectangle2D bounds = screen.getVisualBounds();
-
                 activationStage = new Stage();
                 activationStage.initModality(Modality.APPLICATION_MODAL);
                 activationStage.setScene(scene);

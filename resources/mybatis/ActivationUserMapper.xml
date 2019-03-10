@@ -5,7 +5,19 @@
     <mapper namespace="stu.lxh.fx_headshadow.dao.ActivationUserMapper">
     <!-- namespace:名称空间:动态绑定则指定为接口的全类名,只在MySQL环境下才使用的SQL  -->
 
-    <insert id="insertAvtivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">
+    <insert id="insertActivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">
         INSERT INTO serial_info (serial, license) VALUES (#{serial}, #{license})
     </insert>
+
+    <select id="getSerialByLicense" parameterType="String" resultType="stu.lxh.fx_headshadow.entity.ActivationUser">
+        SELECT serial, activation FROM serial_info WHERE license=#{license}
+    </select>
+
+    <insert id="insertAndActivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">
+        INSERT INTO serial_info (serial, license, activation) VALUES (#{serial}, #{license}, #{activation})
+    </insert>
+
+    <update id="updateActivationLicense">
+        UPDATE serial_info SET activation=#{activation} WHERE serial=#{serial}
+    </update>
 </mapper>
