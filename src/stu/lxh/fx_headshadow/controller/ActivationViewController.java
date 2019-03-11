@@ -1,6 +1,7 @@
 package stu.lxh.fx_headshadow.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
@@ -9,11 +10,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.lxh.fx_headshadow.dao.ActivationUserMapper;
+import stu.lxh.fx_headshadow.demo.Main;
 import stu.lxh.fx_headshadow.entity.ActivationUser;
-import stu.lxh.fx_headshadow.entity.Patient;
-import stu.lxh.fx_headshadow.util.Base64Utils;
-import stu.lxh.fx_headshadow.util.PropertiesUtil;
-import stu.lxh.fx_headshadow.util.RSAUtils;
+import stu.lxh.fx_headshadow.util.*;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -103,47 +102,87 @@ public class ActivationViewController {
          */
         confirmButton.setOnMouseClicked(event -> {
             String licence = licenseTextField.getText();
+            System.out.println("licence: \n" + licence);
+            boolean goon = false;
             if(licence == null || licence.length() == 0) {
                 // 异常，处理,弹出窗口提示使用者
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Error Information");
+                alert.setContentText("请您输入正确的序列号，若无序列号，请联系管理员获取。");
+                alert.showAndWait();
+            } else {
+                goon = true;
             }
 
-            // 根据此licence查找、判定是否已经有计算机已经使用过这个licence
-            SqlSession sqlSession = null;
-            ActivationUser activationUser = null;
-            try {
-                sqlSession = getSqlSession();
-                ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
-                activationUser = activationUserMapper.getSerialByLicense(licence);
-                sqlSession.commit();
+            if(goon) {
+                // 根据此licence查找、判定是否已经有计算机已经使用过这个licence
+                SqlSession sqlSession = null;
+                ActivationUser activationUser;
+                try {
+                    sqlSession = getSqlSession();
+                    ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
+                    activationUser = activationUserMapper.getSerialByLicense(licence);
+                    sqlSession.commit();
 
-                // 说明数据库中有以该序列号的计算机，且没有被激活，更新进行激活
-                if(activationUser != null && activationUser.getSerial() != null && activationUser.getActivation() == NOT_ACTIVATION) {
-                    activationUserMapper.updateActivationLicense(activationUser.getSerial(), ACTIVATION);
-                } else if(activationUser != null && activationUser.getSerial() != null && activationUser.getActivation() == ACTIVATION) {
-                    // 提示用户此序列号已经被使用，无法再次被使用
-                } else if(activationUser == null) {
-                    // 直接插入并进行激活
-                    ActivationUser user  = new ActivationUser();
-                    user.setLicense(licence);
-                    user.setActivation(ACTIVATION);
-                    user.setSerial(getDatabaseSerialKey());
-                    activationUserMapper.insertAndActivationLicense(user);
+                    // 说明数据库中有以该序列号的计算机，且没有被激活，更新进行激活
+                    if(activationUser != null && activationUser.getSerial() != null && activationUser.getActivation() == NOT_ACTIVATION) {
+                        if(activationUser.getSerial().startsWith(getDatabaseSerialKey())) {
+                            activationUserMapper.updateActivationLicense(ACTIVATION, activationUser.getSerial());
+                            Main.setSave(true);
+                        }
+                    } else if(activationUser != null && activationUser.getSerial() != null && activationUser.getActivation() == ACTIVATION) {
+                        // 提示用户此序列号已经被使用，无法再次被使用
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText("Error Information");
+                        alert.setContentText("此序列号已被使用，请联系管理员获取新的序列号");
+                    } else if(activationUser == null) {
+                        // 进行解码验证，若信息正确则直接插入并进行激活
+                        byte[] decode = Base64Utils.decode(licence);
+                        decode = RSAUtils.decryptByPrivateKey(decode, privateKey);
+                        String decodingString = new String(decode);
+                        // 说明此序列号是由该计算机的硬件信息生成的，然后填入进行激活，否则是盗取他人信息，非法
+                        if(decodingString.startsWith(getDatabaseSerialKey())) {
+                            ActivationUser user  = new ActivationUser();
+                            user.setLicense(licence);
+                            user.setActivation(ACTIVATION);
+                            user.setSerial(getDatabaseSerialKey());
+                            activationUserMapper.insertAndActivationLicense(user);
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setHeaderText("Error Information");
+                            alert.setContentText("请您输入正确的序列号，若无序列号，请联系管理员获取。");
+                            alert.showAndWait();
+                        }
+                    }
+
+                    sqlSession.commit();
+                    StageManager.getStage("activationStage").close();
+                    StageManager.removeStage("activationStage");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Error Information");
+                    alert.setContentText("请您输入正确的序列号，若无序列号，请联系管理员获取。");
+                    alert.showAndWait();
+                } finally {
+                    sqlSession.close();
                 }
-
-                sqlSession.commit();
-            } catch (IOException e) {
-                e.printStackTrace();
-                // 如果是
-            } finally {
-                sqlSession.close();
             }
        });
+
+        /**
+         * 点击取消按钮
+         */
+        cancelButton.setOnMouseClicked(event -> {
+            StageManager.getStage("activationStage").close();
+            StageManager.removeStage("activationStage");
+        });
     }
 
     private String getDatabaseSerialKey() {
-        String cupSerial = getCpuSerial();
-        String localMac = getLocalMac();
-        String osName = getOsName();
+        String cupSerial = ComputerUtil.getCpuSerial();
+        String localMac = ComputerUtil.getLocalMac();
+        String osName = ComputerUtil.getOsName();
 
         return cupSerial + "_" + localMac + "_" + osName;
     }
@@ -166,6 +205,10 @@ public class ActivationViewController {
             e.printStackTrace();
         }
         String encode = Base64Utils.encode(userSerialBytes);
+
+        licenseTextField.setText(encode);
+        System.out.println(encode);
+        encode = licenseTextField.getText();
         ActivationUser activationUser = new ActivationUser(databaseSerialKey, encode);
 
         // 将生成的license保存到数据库中
@@ -181,9 +224,6 @@ public class ActivationViewController {
         } finally {
             sqlSession.close();
         }
-        licenseTextField.setText(encode);
-
-        System.out.println(encode);
 
         return encode;
     }
@@ -195,86 +235,6 @@ public class ActivationViewController {
         calendar.setTime(date);
         calendar.add(Calendar.YEAR, serialUserYear);
         return calendar.getTime().getTime();
-    }
-
-    /**
-     * 获得系统的名称
-     * @return
-     */
-    private String getOsName() {
-        return System.getProperty("os.name");
-    }
-
-    /**
-     * 获取当前计算机的物理地址
-     * @return
-     */
-    private String getLocalMac() {
-        String mac = "";
-        String line = "";
-
-        String os = System.getProperty("os.name");
-
-        if(os != null && os.startsWith("Windows")) {
-            try {
-                String command = "cmd.exe /c ipconfig /all";
-                Process process = Runtime.getRuntime().exec(command);
-
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "GBK"));
-
-                while((line = bufferedReader.readLine()) != null) {
-                    if(line.indexOf("物理地址") != -1) {
-                        int index = line.indexOf(":") + 2;
-                        mac = line.substring(index);
-                        break;
-                    }
-                }
-                bufferedReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return mac;
-    }
-
-    /**
-     * 获取CPU号，多个CPU时，仅仅读取第一个
-     * @return
-     */
-    private String getCpuSerial() {
-        String result = "";
-
-        try {
-            File file = File.createTempFile("tmp", ".vbs");
-            file.deleteOnExit();
-            FileWriter fw = new java.io.FileWriter(file);
-
-            String vbs = "On Error Resume Next \r\n\r\n" + "strComputer = \".\"  \r\n"
-                    + "Set objWMIService = GetObject(\"winmgmts:\" _ \r\n"
-                    + "    & \"{impersonationLevel=impersonate}!\\\\\" & strComputer & \"\\root\\cimv2\") \r\n"
-                    + "Set colItems = objWMIService.ExecQuery(\"Select * from Win32_Processor\")  \r\n "
-                    + "For Each objItem in colItems\r\n " + "    Wscript.Echo objItem.ProcessorId  \r\n "
-                    + "    exit for  ' do the first cpu only! \r\n" + "Next                    ";
-
-            fw.write(vbs);
-            fw.close();
-            Process p = Runtime.getRuntime().exec("cscript //NoLogo " + file.getPath());
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = input.readLine()) != null) {
-                result += line;
-            }
-            input.close();
-            file.delete();
-        } catch (Exception e) {
-            e.fillInStackTrace();
-        }
-        if (result.trim().length() < 1 || result == null) {
-            result = "无CPU_ID被读取";
-        }
-
-        return result.trim();
     }
 
     private void init() {

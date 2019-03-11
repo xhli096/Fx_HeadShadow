@@ -1,5 +1,6 @@
 package stu.lxh.fx_headshadow.dao;
 
+import org.apache.ibatis.annotations.Param;
 import stu.lxh.fx_headshadow.entity.ActivationUser;
 
 /**
@@ -17,7 +18,7 @@ public interface ActivationUserMapper {
      * @param license       生成的license
      * @return
      */
-    ActivationUser getSerialByLicense(String license);
+    ActivationUser getSerialByLicense(@Param("license") String license);
 
     /**
      * 更新状态
@@ -25,6 +26,8 @@ public interface ActivationUserMapper {
      * @param activation    状态信息
      *                       0:表示尚未激活       1：表示已激活
      */
-    void updateActivationLicense(String serial, int activation);
+    void updateActivationLicense(@Param("activation") int activation, @Param("serial") String serial);
     void insertAndActivationLicense(ActivationUser activationUser);
+
+    ActivationUser getUserBySerial(@Param("serial") String serial);
 }

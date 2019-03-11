@@ -221,6 +221,7 @@ public class AddPatientViewController {
                 mainViewController.addPatient(patient);
                 mainViewController.setCurrentPatient(patient);
                 StageManager.getStage("addNewPatientStage").close();
+                StageManager.removeStage("addNewPatientStage");
             } catch (ParseException e) {
                 e.printStackTrace();
             } catch (IOException e) {

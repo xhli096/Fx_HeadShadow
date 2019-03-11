@@ -6,18 +6,28 @@
     <!-- namespace:名称空间:动态绑定则指定为接口的全类名,只在MySQL环境下才使用的SQL  -->
 
     <insert id="insertActivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">
-        INSERT INTO serial_info (serial, license) VALUES (#{serial}, #{license})
+        INSERT INTO serial_info (user_serial, user_license) VALUES (#{serial}, #{license})
     </insert>
 
-    <select id="getSerialByLicense" parameterType="String" resultType="stu.lxh.fx_headshadow.entity.ActivationUser">
-        SELECT serial, activation FROM serial_info WHERE license=#{license}
+    <resultMap id="getSerialByLicenseEntity" type="stu.lxh.fx_headshadow.entity.ActivationUser">
+        <id column="user_serial" property="serial" jdbcType="VARCHAR" />
+        <result column="user_license" property="license" />
+        <result column="user_activation" property="activation" />
+    </resultMap>
+
+    <select id="getSerialByLicense" parameterType="String" resultMap="getSerialByLicenseEntity">
+        SELECT user_serial, user_activation FROM serial_info WHERE user_license=#{license}
+    </select>
+
+    <select id="getUserBySerial" parameterType="String" resultMap="getSerialByLicenseEntity">
+        SELECT  user_serial, user_license, user_activation FROM serial_info WHERE user_serial=#{serial}
     </select>
 
     <insert id="insertAndActivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">
-        INSERT INTO serial_info (serial, license, activation) VALUES (#{serial}, #{license}, #{activation})
+        INSERT INTO serial_info (user_serial, user_license, user_activation) VALUES (#{serial}, #{license}, #{activation})
     </insert>
 
     <update id="updateActivationLicense">
-        UPDATE serial_info SET activation=#{activation} WHERE serial=#{serial}
+        UPDATE serial_info SET user_activation=#{activation} WHERE user_serial=#{serial}
     </update>
 </mapper>
