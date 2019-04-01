@@ -25,6 +25,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import stu.lxh.fx_headshadow.dao.AddPatientViewMapper;
+import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
 import stu.lxh.fx_headshadow.util.PropertiesUtil;
@@ -164,16 +165,17 @@ public class MainViewController {
         imageButtonMap.clear();
         // TODO 将之前的一个patient的信息存储到数据库中后，在进行patient的设置
         currentPatient = patient;
+        operationPatientMap = patientMap;
     }
 
     private void init() {
         datePicker.setValue(LocalDate.now());
         preDay = LocalDate.now().minusDays(1);
         nextDay = LocalDate.now().plusDays(1);
-        // 添加一个根据listview初始化的方法
-        initListView();
         // 初始化全部患者列表
         initAllPatientsListView();
+        // 添加一个根据listview初始化的方法
+        initListView();
     }
 
     /**
@@ -452,7 +454,22 @@ public class MainViewController {
                         headShadowStage.setOnCloseRequest(event2 -> {
                             HeadShadowViewController controller = fxmlLoader.getController();
                             Map<String, Point2D> positionMap = controller.getPositionMap();
-//                            currentPatient.addPositionMap(button.getId(), positionMap);
+                            currentPatient.addPositionMap(button.getId(), positionMap);
+
+                            SqlSession sqlSession = null;
+                            try {
+                                sqlSession = getSqlSession();
+                                PatientInfoMapper patientInfoMapper = sqlSession.getMapper(PatientInfoMapper.class);
+                                for(String key : positionMap.keySet()) {
+                                    patientInfoMapper.insertImagePosition(currentPatient.getPatientCardNumber(), button.getId(), key, positionMap.get(key).getX(), positionMap.get(key).getY());
+                                }
+
+                                sqlSession.commit();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                sqlSession.close();
+                            }
                         });
                         // 将子窗口保存在StageManager的map中
                         StageManager.addStage("headShadowStage", headShadowStage);
@@ -473,6 +490,7 @@ public class MainViewController {
             if(newValue != null) {
                 String text = newValue.getText();
                 String cardNumber = text.split("  ")[1];
+                currentPatient = patientMap.get(cardNumber);
                 reinitPaitentInfoAndImage(cardNumber);
             }
         });
@@ -484,7 +502,8 @@ public class MainViewController {
             if(newValue != null) {
                 String text = newValue.getText();
                 String cardNumber = text.split("  ")[1];
-                operationPatientMap = this.allPatientsMap;
+                operationPatientMap = allPatientsMap;
+                currentPatient = allPatientsMap.get(cardNumber);
                 reinitPaitentInfoAndImage(cardNumber);
             }
         });

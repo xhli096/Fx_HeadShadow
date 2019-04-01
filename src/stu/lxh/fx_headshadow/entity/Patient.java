@@ -1,6 +1,9 @@
 package stu.lxh.fx_headshadow.entity;
 
+import javafx.geometry.Point2D;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -50,14 +53,14 @@ public class Patient {
     private String patientContactAddress;
 
     private Map<String, ButtonInfo> patientPhotoPathMap;
-//    /**
-//     * 存储某一个病例图的标志点信息
-//     */
-//    private Map<String, Map<String, Point2D>> pointPositionMap;
+    /**
+     * 存储某一个病例图的标志点信息
+     */
+    private Map<String, Map<String, Point2D>> pointPositionMap;
 
     public Patient() {
         this.patientPhotoPathMap = new LinkedHashMap<>();
-//        this.pointPositionMap = new HashMap<>();
+        this.pointPositionMap = new HashMap<>();
     }
 
     public Patient(String patientName, String patientCardNumber, String gender, Date dateOfBirth, Date firstConsultationTime, int age, String first, String doctor, String patientContactPhone, String patientCOntactAddress) {
@@ -72,7 +75,19 @@ public class Patient {
         this.patientContactPhone = patientContactPhone;
         this.patientContactAddress = patientCOntactAddress;
         this.patientPhotoPathMap = new LinkedHashMap<>();
-//        this.pointPositionMap = new HashMap<>();
+        this.pointPositionMap = new HashMap<>();
+    }
+
+    public Map<String, Point2D> getPositionMapByID(String key) {
+        return pointPositionMap.get(key);
+    }
+
+    public Map<String, Map<String, Point2D>> getPointPositionMap() {
+        return pointPositionMap;
+    }
+
+    public void setPointPositionMap(Map<String, Map<String, Point2D>> pointPositionMap) {
+        this.pointPositionMap = pointPositionMap;
     }
 
     public Map<String, ButtonInfo> getPatientPhotoPathMap() {
@@ -168,16 +183,16 @@ public class Patient {
         this.patientContactAddress = patientContactAddress;
     }
 
-//    /**
-//     * 添加某一个图片的标记点信息
-//     */
-//    public void addPositionMap(String imageId, Map<String, Point2D> positionMap) {
-//        if(pointPositionMap.get(imageId) == null) {
-//            pointPositionMap.put(imageId, positionMap);
-//        } else {
-//            pointPositionMap.replace(imageId, pointPositionMap.get(imageId), positionMap);
-//        }
-//    }
+    /**
+     * 添加某一个图片的标记点信息
+     */
+    public void addPositionMap(String imageId, Map<String, Point2D> positionMap) {
+        if(pointPositionMap.get(imageId) == null) {
+            pointPositionMap.put(imageId, positionMap);
+        } else {
+            pointPositionMap.replace(imageId, pointPositionMap.get(imageId), positionMap);
+        }
+    }
 
     public void setPatientPhotoPathMap(Map<String, ButtonInfo> patientPhotoPathMap) {
         this.patientPhotoPathMap = patientPhotoPathMap;
@@ -197,6 +212,7 @@ public class Patient {
                 ", patientContactPhone='" + patientContactPhone + '\'' +
                 ", patientContactAddress='" + patientContactAddress + '\'' +
                 ", patientPhotoPathMap=" + patientPhotoPathMap +
+                ", pointPositionMap=" + pointPositionMap +
                 '}';
     }
 }

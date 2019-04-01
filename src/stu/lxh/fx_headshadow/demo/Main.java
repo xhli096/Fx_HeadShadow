@@ -3,6 +3,7 @@ package stu.lxh.fx_headshadow.demo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +11,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import net.sf.ezmorph.bean.MorphDynaBean;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -22,13 +26,12 @@ import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ActivationUser;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
+import stu.lxh.fx_headshadow.entity.Point;
 import stu.lxh.fx_headshadow.util.ComputerUtil;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by LXH on 2019/1/6.
@@ -72,12 +75,11 @@ public class Main extends Application {
         }
 
         // TODO 读取数据库中的信息，验证本计算机是否激活了
-        String databaseSerial = ComputerUtil.getCpuSerial() + ComputerUtil.getLocalMac() + ComputerUtil.getOsName();
+        String databaseSerial = ComputerUtil.getCpuSerial() + "_" + ComputerUtil.getLocalMac() +  "_" + ComputerUtil.getOsName();
         try {
             SqlSession sqlSession = getSqlSession();
             ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
             ActivationUser activationUser = activationUserMapper.getUserBySerial(databaseSerial);
-            System.out.println("activationUser:" + activationUser);
             if(activationUser == null || activationUser.getActivation() == NOT_ACTIVATION) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("Warning Information");
@@ -96,8 +98,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         try {
             this.primaryStage = primaryStage;
@@ -199,6 +199,7 @@ public class Main extends Application {
         String str;
         boolean nextIsPatient = false;
         boolean nextIsPatientImage = false;
+        boolean nextIsPatientImagePosition = false;
         // 按行读取字符串
         while ((str = bufferedReader.readLine()) != null) {
             // 设置count的值
@@ -212,6 +213,12 @@ public class Main extends Application {
             }
             if(str.startsWith("病人图像信息：")) {
                 nextIsPatientImage = true;
+                nextIsPatient = false;
+                continue;
+            }
+            if(str.startsWith("病人图像点位置信息：")) {
+                nextIsPatientImagePosition = true;
+                nextIsPatientImage = false;
                 nextIsPatient = false;
                 continue;
             }
@@ -235,6 +242,82 @@ public class Main extends Application {
                     }
                 }
             }
+
+            if(nextIsPatientImagePosition) {
+                cardNumber = str.split(" ")[0];
+                count = Integer.parseInt(str.split(" ")[1]);
+                int mem;
+                System.out.println("cardNumber:" + cardNumber);
+                Patient patient = patientMap.get(cardNumber);
+                Map<String, Map<String, Point2D>> result = new HashMap<>();
+                for(int i = 0; i < count; i++) {
+                    if((str = bufferedReader.readLine()) != null) {
+                        String buttonId = str.split(" ")[0];
+                        mem = Integer.parseInt(str.split(" ")[1]);
+                        Map<String, Point2D> point2DMap = new HashMap<>();
+                        for(int j = 0; j < mem; j++) {
+                            if((str = bufferedReader.readLine()) != null) {
+                                String[] values = str.split(" ");
+                                String pointName = values[0];
+                                Point2D point2D = new Point2D(Double.parseDouble(values[1]), Double.parseDouble(values[2]));
+                                point2DMap.put(pointName, point2D);
+                            }
+                        }
+                        if(point2DMap.size() > 0) {
+                            result.put(buttonId, point2DMap);
+                        }
+                    }
+                }
+                patient.setPointPositionMap(result);
+            }
+        }
+
+        for(String cardNumber : patientMap.keySet()) {
+            Patient patient = patientMap.get(cardNumber);
+            Map<String, Map<String, Point2D>> pointPositionMap = patient.getPointPositionMap();
+
+            System.out.println(pointPositionMap);
+            for(String key : pointPositionMap.keySet()){
+                Map<String, Point2D> stringPoint2DMap = pointPositionMap.get(key);
+                System.out.println(stringPoint2DMap);
+                for(String k : stringPoint2DMap.keySet()) {
+                    Point2D point2D = stringPoint2DMap.get(k);
+                    System.out.println(point2D);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 将json字符串转为Map结构
+     * 如果json复杂，结果可能是map嵌套map
+     * @param jsonStr 入参，json格式字符串
+     * @return 返回一个map
+     */
+    public static Map<String, Object> json2Map(String jsonStr) {
+        Map<String, Object> map = new HashMap<>();
+        if(jsonStr != null && !"".equals(jsonStr)){
+            //最外层解析
+            JSONObject json = JSONObject.fromObject(jsonStr);
+            for (Object k : json.keySet()) {
+                Object v = json.get(k);
+                //如果内层还是数组的话，继续解析
+                if (v instanceof JSONArray) {
+                    List<Map<String, Object>> list = new ArrayList<>();
+                    Iterator<JSONObject> it = ((JSONArray) v).iterator();
+                    while (it.hasNext()) {
+                        JSONObject json2 = it.next();
+                        list.add(json2Map(json2.toString()));
+                    }
+                    map.put(k.toString(), list);
+                } else {
+                    map.put(k.toString(), v);
+                }
+            }
+            return map;
+        }else{
+            return null;
         }
     }
 
@@ -272,6 +355,21 @@ public class Main extends Application {
                     ButtonInfo buttonInfo = patientPhotoPathMap.get(k);
                     JSONObject jsonObject = JSONObject.fromObject(buttonInfo);
                     fileWriter.write(k + " " + jsonObject.toString() + "\n");
+                }
+            }
+
+            fileWriter.write("病人图像点位置信息：\n");
+            for(String key : patientMap.keySet()) {
+                Patient patient = patientMap.get(key);
+                Map<String, Map<String, Point2D>> pointPositionMap = patient.getPointPositionMap();
+                fileWriter.write(patient.getPatientCardNumber() + " " + pointPositionMap.size() + "\n");
+                for(String k : pointPositionMap.keySet()) {
+                    Map<String, Point2D> stringPoint2DMap = pointPositionMap.get(k);
+                    fileWriter.write(k + " " + stringPoint2DMap.size() + "\n");
+                    for(String ke : stringPoint2DMap.keySet()) {
+                        Point2D point2D = stringPoint2DMap.get(ke);
+                        fileWriter.write(ke + " " + point2D.getX() + " " + point2D.getY() + "\n");
+                    }
                 }
             }
 

@@ -2,15 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e6bfdd4-9865-41de-82be-00c231556d96" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/ComputerUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/itextpdf_5_5_8.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/lib/itext-asian.jar" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/lib/itextpdf-5.5.8.jar" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/controller/MainViewController.class" afterPath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/controller/MainViewController.class" />
+      <change beforePath="$PROJECT_DIR$/Fx_HeadShadow.iml" afterPath="$PROJECT_DIR$/Fx_HeadShadow.iml" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/control/LLabel.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/controller/AddPatientViewController.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/controller/HeadShadowViewController.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/controller/MainViewController.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/dao/AddPatientViewMapper.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/demo/Main.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/entity/Patient.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/entity/Point.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/service/AddPatientViewService.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/util/PropertiesUtil.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/util/StageManager.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/util/SwingUtil.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/util/ThumbnailatorUtil.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/view/HeadShadow.fxml" afterPath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/view/HeadShadow.fxml" />
+      <change beforePath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/view/MainView.fxml" afterPath="$PROJECT_DIR$/out/production/Fx_HeadShadow/stu/lxh/fx_headshadow/view/MainView.fxml" />
       <change beforePath="$PROJECT_DIR$/resources/mybatis/ActivationUserMapper.xml" afterPath="$PROJECT_DIR$/resources/mybatis/ActivationUserMapper.xml" />
-      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/ActivationViewController.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/ActivationViewController.java" />
-      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/AddPatientViewController.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/AddPatientViewController.java" />
-      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserMapper.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserMapper.java" />
+      <change beforePath="$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml" afterPath="$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml" />
+      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java" />
+      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/MainViewController.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/MainViewController.java" />
+      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java" />
       <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/demo/Main.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/demo/Main.java" />
+      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java" />
       <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/RSATest.java" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/RSATest.java" />
+      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml" />
+      <change beforePath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/MainView.fxml" afterPath="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/MainView.fxml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,6 +39,11 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Fx_HeadShadow$Main.coverage" NAME="Main Coverage Results" MODIFIED="1552709060936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>stu.lxh.fx_headshadow.demo.*</FILTER>
+    </SUITE>
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -36,32 +62,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ActivationUserMapper.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/mybatis/ActivationUserMapper.xml">
+      <file leaf-file-name="HeadShadowViewController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="22" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="9" />
+            <state relative-caret-position="25">
+              <caret line="1286" column="21" lean-forward="false" selection-start-line="1286" selection-start-column="21" selection-end-line="1286" selection-end-column="21" />
               <folding>
-                <marker date="1552291262919" expanded="true" signature="409:491" ph="INSERT INTO serial_info... " />
-                <marker date="1552291262919" expanded="true" signature="926:966" ph="SELECT user_... " />
-                <marker date="1552291262919" expanded="true" signature="926:1008" ph="SELECT user_... serial_info" />
-                <marker date="1552291262919" expanded="true" signature="1126:1221" ph="SELECT user_... serial_info" />
-                <marker date="1552291262919" expanded="true" signature="1350:1464" ph="INSERT INTO serial_info... " />
-                <marker date="1552291262919" expanded="true" signature="1530:1610" ph="UPDATE serial_info... " />
+                <element signature="imports" expanded="true" />
+                <element signature="e#68417#68418#0" expanded="true" />
+                <element signature="e#68456#68457#0" expanded="true" />
+                <element signature="e#78616#78617#0" expanded="true" />
+                <element signature="e#78650#78651#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivationView.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/ActivationView.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
+      <file leaf-file-name="Patient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-              <folding />
+            <state relative-caret-position="1975">
+              <caret line="88" column="86" lean-forward="false" selection-start-line="88" selection-start-column="70" selection-end-line="88" selection-end-column="86" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1961#1962#0" expanded="true" />
+                <element signature="e#2009#2010#0" expanded="true" />
+                <element signature="e#2079#2080#0" expanded="true" />
+                <element signature="e#2118#2119#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -69,46 +97,25 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/demo/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="78" column="80" lean-forward="false" selection-start-line="78" selection-start-column="80" selection-end-line="78" selection-end-column="80" />
+            <state relative-caret-position="6175">
+              <caret line="278" column="49" lean-forward="false" selection-start-line="278" selection-start-column="49" selection-end-line="278" selection-end-column="49" />
               <folding>
-                <element signature="e#10522#10523#0" expanded="true" />
-                <element signature="e#10549#10550#0" expanded="true" />
-                <element signature="e#10597#10598#0" expanded="true" />
-                <element signature="e#10629#10630#0" expanded="true" />
+                <element signature="e#14952#14953#0" expanded="true" />
+                <element signature="e#14979#14980#0" expanded="true" />
+                <element signature="e#15027#15028#0" expanded="true" />
+                <element signature="e#15059#15060#0" expanded="true" />
+                <element signature="e#15105#15106#0" expanded="true" />
+                <element signature="e#15133#15134#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivationUser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/ActivationUser.java">
+      <file leaf-file-name="PatientInfoMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-              <folding>
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#445#446#0" expanded="true" />
-                <element signature="e#489#490#0" expanded="true" />
-                <element signature="e#525#526#0" expanded="true" />
-                <element signature="e#559#560#0" expanded="true" />
-                <element signature="e#589#590#0" expanded="true" />
-                <element signature="e#635#636#0" expanded="true" />
-                <element signature="e#673#674#0" expanded="true" />
-                <element signature="e#707#708#0" expanded="true" />
-                <element signature="e#740#741#0" expanded="true" />
-                <element signature="e#789#790#0" expanded="true" />
-                <element signature="e#833#834#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivationViewController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/ActivationViewController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2172">
-              <caret line="157" column="40" lean-forward="true" selection-start-line="157" selection-start-column="40" selection-end-line="157" selection-end-column="40" />
+            <state relative-caret-position="475">
+              <caret line="24" column="60" lean-forward="false" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,38 +123,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RSAUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/RSAUtils.java">
+      <file leaf-file-name="PatientInfoMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+            <state relative-caret-position="675">
+              <caret line="27" column="37" lean-forward="false" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+              <folding>
+                <marker date="1552707589267" expanded="true" signature="489:515" ph="SELECT * FRO... patient_info" />
+                <marker date="1552707589267" expanded="true" signature="653:768" ph="SELECT patie... patient_x_image_info" />
+                <marker date="1552707589267" expanded="true" signature="828:937" ph="INSERT INTO patient_x_image_point_position_info... " />
+                <marker date="1552707589267" expanded="true" signature="828:981" ph="INSERT INTO patient_x_image_point_position_info... " />
+                <marker date="1552707589267" expanded="true" signature="828:1006" ph="INSERT INTO patient_x_image_point_position_info... " />
+                <marker date="1552707589267" expanded="true" signature="828:1007" ph="INSERT INTO patient_x_image_point_position_info... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HeadShadow.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6175">
+              <caret line="247" column="75" lean-forward="false" selection-start-line="247" selection-start-column="65" selection-end-line="247" selection-end-column="75" />
               <folding />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base64Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/Base64Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
-              <folding>
-                <element signature="e#677#678#0" expanded="true" />
-                <element signature="e#733#734#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivationUserMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
           </provider>
         </entry>
       </file>
@@ -164,8 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>canvas</find>
-      <find>mandibularPlaneToFrankfortPlaneAngleCheckBox</find>
       <find>SNPr</find>
       <find>List</find>
       <find>imageButtonMap</find>
@@ -177,6 +177,19 @@
       <find>setLabelText</find>
       <find>PatientInfoMapper</find>
       <find>activationButton</find>
+      <find>mandibularPlaneToFrankfortPlaneAngleCheckBox</find>
+      <find>gonialAngleCheckBox</find>
+      <find>mandibularPlaneToFrankfortPlaneSNAngleCheckBox</find>
+      <find>SNDAngleCheckBox</find>
+      <find>SNPrCheckBox</find>
+      <find>Snpr</find>
+      <find>positionMap</find>
+      <find>current</find>
+      <find>LICheckBox</find>
+      <find>LI</find>
+      <find>extentOfAscendingRamusCheckBox</find>
+      <find>incisorPositionCheckBox</find>
+      <find>canvas</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -191,7 +204,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/PropertiesUtil.java" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/StageManager.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/AddPatientView.fxml" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/GsonUtils.java" />
@@ -199,13 +211,8 @@
         <option value="$PROJECT_DIR$/resources/log/2019-02-26.log" />
         <option value="$PROJECT_DIR$/resources/log/2019-02-27.log" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/AddPatientViewMapper.java" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java" />
-        <option value="$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/ButtonInfo.java" />
         <option value="$PROJECT_DIR$/resources/mybatis/AddPatientViewMapper.xml" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/MainView.fxml" />
         <option value="$PROJECT_DIR$/resources/test/key.txt" />
         <option value="$PROJECT_DIR$/resources/config/log4j.properties" />
         <option value="$PROJECT_DIR$/resources/test/说明.txt" />
@@ -217,16 +224,23 @@
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserDao.java" />
         <option value="$PROJECT_DIR$/resources/config/mybatis-config.xml" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/ActivationView.fxml" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/MainViewController.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/ActivationUser.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/Test.java" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/RSATest.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/AddPatientViewController.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/ComputerUtil.java" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserMapper.java" />
         <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/ActivationViewController.java" />
-        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/demo/Main.java" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserMapper.java" />
         <option value="$PROJECT_DIR$/resources/mybatis/ActivationUserMapper.xml" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/MainView.fxml" />
+        <option value="$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java" />
+        <option value="$PROJECT_DIR$/resources/log/2019-03-16.log" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/MainViewController.java" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/demo/Main.java" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/RSATest.java" />
+        <option value="$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java" />
       </list>
     </option>
   </component>
@@ -243,8 +257,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -289,8 +302,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -422,8 +435,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -440,8 +453,8 @@
       <recent name="stu.lxh.fx_headshadow.util" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\教学课件\IDEA_PROJECT\Fx_HeadShadow\resources\mybatis" />
       <recent name="E:\教学课件\IDEA_PROJECT\Fx_HeadShadow\lib" />
+      <recent name="E:\教学课件\IDEA_PROJECT\Fx_HeadShadow\resources\mybatis" />
       <recent name="E:\教学课件\IDEA_PROJECT\Fx_HeadShadow\src\stu\lxh\fx_headshadow\util" />
     </key>
   </component>
@@ -522,7 +535,7 @@
       <module name="Fx_HeadShadow" />
       <envs />
     </configuration>
-    <configuration name="RSATest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="RSATest" type="Application" factoryName="Application" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="stu.lxh.fx_headshadow.test.*" />
@@ -628,17 +641,16 @@
       <envs />
     </configuration>
     <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="1" class="java.lang.String" itemvalue="Application.FileUtil" />
-      <item index="2" class="java.lang.String" itemvalue="Application.MD5Util" />
-      <item index="3" class="java.lang.String" itemvalue="Application.RSATest" />
+      <item index="0" class="java.lang.String" itemvalue="Application.RSATest" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="2" class="java.lang.String" itemvalue="Application.FileUtil" />
+      <item index="3" class="java.lang.String" itemvalue="Application.MD5Util" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="Application.RSATest" />
-        <item index="2" class="java.lang.String" itemvalue="Application.MD5Util" />
-        <item index="3" class="java.lang.String" itemvalue="Application.FileUtil" />
+        <item index="1" class="java.lang.String" itemvalue="Application.MD5Util" />
+        <item index="2" class="java.lang.String" itemvalue="Application.FileUtil" />
       </list>
     </recent_temporary>
   </component>
@@ -689,7 +701,20 @@
       <workItem from="1552121885975" duration="10026000" />
       <workItem from="1552180625170" duration="8782000" />
       <workItem from="1552208571317" duration="9248000" />
-      <workItem from="1552266207238" duration="16355000" />
+      <workItem from="1552266207238" duration="18996000" />
+      <workItem from="1552303990669" duration="2169000" />
+      <workItem from="1552353448674" duration="6269000" />
+      <workItem from="1552391654954" duration="4251000" />
+      <workItem from="1552437903731" duration="2263000" />
+      <workItem from="1552524805495" duration="1375000" />
+      <workItem from="1552572185037" duration="666000" />
+      <workItem from="1552616679997" duration="2294000" />
+      <workItem from="1552632252272" duration="8599000" />
+      <workItem from="1552640997020" duration="47000" />
+      <workItem from="1552700090628" duration="19441000" />
+      <workItem from="1552787839311" duration="22420000" />
+      <workItem from="1553416502541" duration="5254000" />
+      <workItem from="1554002932772" duration="597000" />
     </task>
     <task id="LOCAL-00001" summary="20190215.21.57">
       <created>1550239107061</created>
@@ -838,11 +863,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552201167403</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="20190311.01">
+      <created>1552291598649</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1552291598649</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="282468000" />
+    <option name="totallyTimeSpent" value="360754000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -855,34 +887,34 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.505" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.495" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06138393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.02232143" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38392857" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18613334" sideWeight="0.49527666" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14826667" sideWeight="0.49527666" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.49" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17910448" sideWeight="0.50472337" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17910448" sideWeight="0.50472337" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19977678" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -940,7 +972,8 @@
     <MESSAGE value="20190308.01" />
     <MESSAGE value="20190309.01" />
     <MESSAGE value="20190310.01" />
-    <option name="LAST_COMMIT_MESSAGE" value="20190310.01" />
+    <MESSAGE value="20190311.01" />
+    <option name="LAST_COMMIT_MESSAGE" value="20190311.01" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -949,41 +982,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/javafx-src.zip!/javafx/scene/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="8262" column="40" lean-forward="false" selection-start-line="8262" selection-start-column="40" selection-end-line="8262" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="26" column="52" lean-forward="false" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/javafx-src.zip!/com/sun/javafx/binding/ExpressionHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-689">
-          <caret line="181" column="0" lean-forward="false" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/Fx_HeadShadow/log/2019-02-25.log" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/javafx-src.zip!/javafx/scene/control/Button.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/PatientButton.java" />
-    <entry file="file://$PROJECT_DIR$/resources/log/2019-02-25.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/2019-02-26.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -1033,13 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/log/2019-03-04.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1077,28 +1068,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/AddPatientView.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="150" column="52" lean-forward="false" selection-start-line="150" selection-start-column="52" selection-end-line="150" selection-end-column="52" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/Graphics2DUtil.java" />
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/MainView.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/Graphics2DUtil.java" />
     <entry file="file://$PROJECT_DIR$/resources/config/config.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
@@ -1111,14 +1091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="410">
           <caret line="41" column="62" lean-forward="false" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -1148,7 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="542">
           <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,19 +1144,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java">
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/Test.java" />
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/ComputerUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19675">
-          <caret line="787" column="0" lean-forward="false" selection-start-line="783" selection-start-column="0" selection-end-line="787" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="175">
+          <caret line="7" column="25" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/Test.java" />
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/RSAUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/Base64Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/ActivationView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/ActivationUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-683">
+          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/ActivationViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1608">
+          <caret line="157" column="40" lean-forward="true" selection-start-line="157" selection-start-column="40" selection-end-line="157" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/control/Test.java" />
+    <entry file="file://$PROJECT_DIR$/resources/mybatis/ActivationUserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <marker date="1552291899221" expanded="true" signature="409:491" ph="INSERT INTO serial_info... " />
+            <marker date="1552291899221" expanded="true" signature="926:966" ph="SELECT user_... " />
+            <marker date="1552291899221" expanded="true" signature="926:1008" ph="SELECT user_... serial_info" />
+            <marker date="1552291899221" expanded="true" signature="1126:1220" ph="SELECT user_... serial_info" />
+            <marker date="1552291899221" expanded="true" signature="1349:1463" ph="INSERT INTO serial_info... " />
+            <marker date="1552291899221" expanded="true" signature="1529:1609" ph="UPDATE serial_info... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/mybatis/AddPatientViewMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="77" column="82" lean-forward="false" selection-start-line="77" selection-start-column="75" selection-end-line="77" selection-end-column="82" />
+        <state relative-caret-position="1000">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding>
             <marker date="1551680709482" expanded="true" signature="2836:2966" ph="INSERT INTO patient_info... " />
             <marker date="1551680709482" expanded="true" signature="3031:3134" ph="INSERT INTO patient_x_image_info... " />
@@ -1194,147 +1219,159 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml">
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/MainView.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-          <folding>
-            <marker date="1551606453399" expanded="true" signature="489:515" ph="SELECT * FRO... patient_info" />
-            <marker date="1551606453399" expanded="true" signature="653:768" ph="SELECT patie... patient_x_image_info" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/RSATest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+        <state relative-caret-position="625">
+          <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="55" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/MainViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="546" column="54" lean-forward="false" selection-start-line="546" selection-start-column="39" selection-end-line="546" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/ComputerUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="25" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="25" />
-          <folding>
-            <element signature="e#207#208#0" expanded="true" />
-            <element signature="e#259#260#0" expanded="true" />
-          </folding>
-        </state>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/AddPatientViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1225">
-          <caret line="223" column="60" lean-forward="false" selection-start-line="223" selection-start-column="60" selection-end-line="223" selection-end-column="60" />
+        <state relative-caret-position="5075">
+          <caret line="221" column="46" lean-forward="false" selection-start-line="221" selection-start-column="46" selection-end-line="221" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/ActivationUserMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="34" />
+        <state relative-caret-position="508">
+          <caret line="31" column="49" lean-forward="false" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/log/2019-03-15.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/MainViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1500">
+          <caret line="147" column="19" lean-forward="true" selection-start-line="147" selection-start-column="19" selection-end-line="147" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/dao/PatientInfoMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="24" column="60" lean-forward="false" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/ActivationUser.java">
+    <entry file="file://$PROJECT_DIR$/resources/log/2019-03-16.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-          <folding>
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#445#446#0" expanded="true" />
-            <element signature="e#489#490#0" expanded="true" />
-            <element signature="e#525#526#0" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-            <element signature="e#589#590#0" expanded="true" />
-            <element signature="e#635#636#0" expanded="true" />
-            <element signature="e#673#674#0" expanded="true" />
-            <element signature="e#707#708#0" expanded="true" />
-            <element signature="e#740#741#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="225">
+          <caret line="9" column="9" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/Base64Utils.java">
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/HeadShadow.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
-          <folding>
-            <element signature="e#677#678#0" expanded="true" />
-            <element signature="e#733#734#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/util/RSAUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        <state relative-caret-position="6175">
+          <caret line="247" column="75" lean-forward="false" selection-start-line="247" selection-start-column="65" selection-end-line="247" selection-end-column="75" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/ActivationViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2172">
-          <caret line="157" column="40" lean-forward="true" selection-start-line="157" selection-start-column="40" selection-end-line="157" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/view/ActivationView.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/mybatis/PatientInfoMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="675">
+          <caret line="27" column="37" lean-forward="false" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding>
+            <marker date="1552707589267" expanded="true" signature="489:515" ph="SELECT * FRO... patient_info" />
+            <marker date="1552707589267" expanded="true" signature="653:768" ph="SELECT patie... patient_x_image_info" />
+            <marker date="1552707589267" expanded="true" signature="828:937" ph="INSERT INTO patient_x_image_point_position_info... " />
+            <marker date="1552707589267" expanded="true" signature="828:981" ph="INSERT INTO patient_x_image_point_position_info... " />
+            <marker date="1552707589267" expanded="true" signature="828:1006" ph="INSERT INTO patient_x_image_point_position_info... " />
+            <marker date="1552707589267" expanded="true" signature="828:1007" ph="INSERT INTO patient_x_image_point_position_info... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/entity/Patient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1975">
+          <caret line="88" column="86" lean-forward="false" selection-start-line="88" selection-start-column="70" selection-end-line="88" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1961#1962#0" expanded="true" />
+            <element signature="e#2009#2010#0" expanded="true" />
+            <element signature="e#2079#2080#0" expanded="true" />
+            <element signature="e#2118#2119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/log/2019-03-17.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/demo/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="78" column="80" lean-forward="false" selection-start-line="78" selection-start-column="80" selection-end-line="78" selection-end-column="80" />
+        <state relative-caret-position="6175">
+          <caret line="278" column="49" lean-forward="false" selection-start-line="278" selection-start-column="49" selection-end-line="278" selection-end-column="49" />
           <folding>
-            <element signature="e#10522#10523#0" expanded="true" />
-            <element signature="e#10549#10550#0" expanded="true" />
-            <element signature="e#10597#10598#0" expanded="true" />
-            <element signature="e#10629#10630#0" expanded="true" />
+            <element signature="e#14952#14953#0" expanded="true" />
+            <element signature="e#14979#14980#0" expanded="true" />
+            <element signature="e#15027#15028#0" expanded="true" />
+            <element signature="e#15059#15060#0" expanded="true" />
+            <element signature="e#15105#15106#0" expanded="true" />
+            <element signature="e#15133#15134#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/mybatis/ActivationUserMapper.xml">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/javafx-src.zip!/com/sun/javafx/tk/Toolkit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="22" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="9" />
+        <state relative-caret-position="1050">
+          <caret line="133" column="49" lean-forward="false" selection-start-line="133" selection-start-column="39" selection-end-line="133" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/javafx-src.zip!/javafx/geometry/Point2D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="95" column="26" lean-forward="false" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/test/RSATest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="55" column="26" lean-forward="false" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stu/lxh/fx_headshadow/controller/HeadShadowViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1286" column="21" lean-forward="false" selection-start-line="1286" selection-start-column="21" selection-end-line="1286" selection-end-column="21" />
           <folding>
-            <marker date="1552291262919" expanded="true" signature="409:491" ph="INSERT INTO serial_info... " />
-            <marker date="1552291262919" expanded="true" signature="926:966" ph="SELECT user_... " />
-            <marker date="1552291262919" expanded="true" signature="926:1008" ph="SELECT user_... serial_info" />
-            <marker date="1552291262919" expanded="true" signature="1126:1221" ph="SELECT user_... serial_info" />
-            <marker date="1552291262919" expanded="true" signature="1350:1464" ph="INSERT INTO serial_info... " />
-            <marker date="1552291262919" expanded="true" signature="1530:1610" ph="UPDATE serial_info... " />
+            <element signature="imports" expanded="true" />
+            <element signature="e#68417#68418#0" expanded="true" />
+            <element signature="e#68456#68457#0" expanded="true" />
+            <element signature="e#78616#78617#0" expanded="true" />
+            <element signature="e#78650#78651#0" expanded="true" />
           </folding>
         </state>
       </provider>

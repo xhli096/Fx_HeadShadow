@@ -16,4 +16,15 @@
     <select id="getPatientImageInfo" resultType="stu.lxh.fx_headshadow.entity.ButtonInfo" parameterType="String">
         SELECT buttonId, imagePath, width, height  FROM patient_x_image_info WHERE patientCardNumber = #{patientCardNumber}
     </select>
+
+    <insert id="insertImagePosition">
+      INSERT INTO patient_x_image_point_position_info(patientCardNumber, buttonId, pointName, width, height) VALUES
+        (#{patientCardNumber}, #{buttonId},#{pointName}, #{x}, #{y})
+    </insert>
 </mapper>
+<!--
+        (#{patientCardNumber}, #{buttonId},
+<foreach collection="map.keys" item="key" separator=",">#{key}</foreach>
+<foreach collection="map.values" item="v">#{v.x}, #{v.y}</foreach>
+        )
+-->

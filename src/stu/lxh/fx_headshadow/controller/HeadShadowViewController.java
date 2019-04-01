@@ -7,8 +7,12 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -16,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import stu.lxh.fx_headshadow.entity.Point;
 
+import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -301,24 +306,25 @@ public class HeadShadowViewController {
     }
 
     private void dealAction() {
-        // TODO 用户头影区域的初始化
+//        // TODO 用户头影区域的初始化
 //        canvas.setOnScroll(event -> {
 //            double deltaY = event.getDeltaY();
 //            System.out.println(deltaY);
 //            // 保留width ： height
 //            patientXImage.setPreserveRatio(true);
 //            // 向上滚动,放大图片
+//            System.out.println("deltaY:" + deltaY);
 //            if(deltaY > 0) {
-//                double width = patientXImage.getFitWidth() * defaultRate;
-//                double height = patientXImage.getFitHeight() * defaultRate;
+//                double width = patientXImage.getFitWidth() * 1.1;
+//                double height = patientXImage.getFitHeight() * 1.1;
 //                patientXImage.setFitWidth(width);
 //                patientXImage.setFitHeight(height);
 //                canvas.setWidth(width);
 //                canvas.setHeight(height);
 //            // 向下滚动,缩小图片
 //            } else {
-//                double width = patientXImage.getFitWidth() / defaultRate;
-//                double height = patientXImage.getFitHeight() / defaultRate;
+//                double width = patientXImage.getFitWidth() / 1.1;
+//                double height = patientXImage.getFitHeight() / 1.1;
 //                patientXImage.setFitWidth(width);
 //                patientXImage.setFitHeight(height);
 //                canvas.setWidth(width);
@@ -554,8 +560,47 @@ public class HeadShadowViewController {
             }
         });
 
-        NAMMCheckBox.setOnMouseClicked(event -> {
+        NAMMCheckBox.setOnMouseClicked((MouseEvent event) -> {
             if(NAMMCheckBox.isSelected()) {
+                try {
+                    Point2D Na = null;
+                    Point2D A = null;
+                    Point2D UI = null;
+                    for(Point2D point2D : point2DMap.keySet()) {
+                        Point point = point2DMap.get(point2D);
+                        // 下齿槽座点至鼻根点所需要的两个点为Id和Na点
+                        if(point.getPointName().equals("A")) {
+                            A = point2D;
+                        }
+                        // 前颅底平面所需要的两个点为S点与Na点
+                        if(point.getPointName().equals("UI")) {
+                            UI = point2D;
+                        }
+                        if(point.getPointName().equals("Na")) {
+                            Na = point2D;
+                        }
+                    }
+                    if(A == null || UI == null || Na == null) {
+                        // 有一个为null，则说明标点不全，提醒用户，所标点不全
+                        throw new Exception("您所标记的点不全");
+                    }
+                    // Na(x1, y1) A(x2, y2) UI(x3, y3)
+                    double distance = ((A.getY() / 25.4 - Na.getY() / 25.4)  * UI.getX() / 25.4 + (Na.getX() / 25.4 - A.getX() / 25.4) * UI.getY() / 25.4 + ((A.getX() / 25.4)*(Na.getY() / 25.4) - (A.getY() / 25.4)*(Na.getX() / 25.4)))
+                            / Math.sqrt((A.getY() / 25.4 - Na.getY() / 25.4)* (A.getY() / 25.4 - Na.getY() / 25.4) + (Na.getX() / 25.4 - A.getX() / 25.4) * (Na.getX() / 25.4 - A.getX() / 25.4));
+
+                    // TODO 将结果添加入TextArea中
+                    Platform.runLater(() -> measurementResultTextArea.appendText("1-NA(mm)：" + distance + "\n"));
+                    System.out.println("1-NA(mm)：" + distance);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText("Warning Information");
+                    alert.setContentText("您所标记的点不全");
+                    alert.showAndWait();
+                    // 取消选中状态
+                    incisorPositionCheckBox.setSelected(false);
+                }
             }
         });
 
@@ -716,6 +761,73 @@ public class HeadShadowViewController {
 
         SNDAngleCheckBox.setOnMouseClicked(event -> {
             if(SNDAngleCheckBox.isSelected()) {
+                try {
+                    // 上中切牙长轴与前颅底平面（蝶鞍点S与鼻根点Na的连线平面）的后下交角
+                    // 1、判断所测量的项目中的所需要的点是否存在
+                    Point2D D = null;
+                    Point2D S = null;
+                    Point2D Na = null;
+                    for(Point2D point2D : point2DMap.keySet()) {
+                        Point point = point2DMap.get(point2D);
+                        // 上齿槽座点和鼻根点所需要的两个点为A和Na点
+                        if(point.getPointName().equals("D")) {
+                            D = point2D;
+                        }
+                        // 前颅底平面所需要的两个点为S点与Na点
+                        if(point.getPointName().equals("S")) {
+                            S = point2D;
+                        }
+                        if(point.getPointName().equals("Na")) {
+                            Na = point2D;
+                        }
+                    }
+                    if(D == null || S == null || Na == null) {
+                        // 有一个为null，则说明标点不全，提醒用户，所标点不全
+                        throw new Exception("您所标记的点不全");
+                    }
+                    // 2、进行连线
+                    graphicsContext.setLineWidth(3);
+                    // result用于记录两个直线的交点
+                    Point2D result = getLineearIntersectionPoint(S, Na, D, Na);
+                    System.out.println(result.getX() + " " + result.getY());
+
+                    Line line = new Line();
+                    line.setStartX(D.getX());
+                    line.setStartY(D.getY());
+                    line.setEndX(Na.getX());
+                    line.setEndY(Na.getY());
+                    if(!line.contains(result)) {
+                        line.setEndX(result.getX());
+                        line.setEndY(result.getY());
+                    }
+                    graphicsContext.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+
+                    line = new Line();
+                    line.setStartX(S.getX());
+                    line.setStartY(S.getY());
+                    line.setEndX(Na.getX());
+                    line.setEndY(Na.getY());
+                    if(!line.contains(result)) {
+                        line.setEndX(result.getX());
+                        line.setEndY(result.getY());
+                    }
+                    graphicsContext.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+                    // 3、测量对应测量项目的角度值或距离值
+                    // 参数顺序：需要计算的角，角1， 角2
+                    double angle = Angle(result, S, D);
+                    // TODO 将结果添加入TextArea中
+                    Platform.runLater(() -> measurementResultTextArea.appendText("SND角度为：" + angle + "\n"));
+                    System.out.println("SND角度是：" + angle);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText("Warning Information");
+                    alert.setContentText("您所标记的点不全");
+                    alert.showAndWait();
+                    // 取消选中状态
+                    angleOfUpperIncisorCheckBox.setSelected(false);
+                }
             }
         });
 
@@ -943,11 +1055,151 @@ public class HeadShadowViewController {
         // TODO 存在问题
         mandibularPlaneToFrankfortPlaneAngleCheckBox.setOnMouseClicked(event -> {
             if(mandibularPlaneToFrankfortPlaneAngleCheckBox.isSelected()) {
+                try {
+                    // 1、判断所测量的项目中的所需要的点是否存在
+                    Point2D Go = null;
+                    Point2D Gn = null;
+
+                    Point2D Po = null;
+                    Point2D Or = null;
+                    for(Point2D point2D : point2DMap.keySet()) {
+                        Point point = point2DMap.get(point2D);
+                        if(point.getPointName().equals("Po")) {
+                            Po = point2D;
+                        }
+                        if(point.getPointName().equals("Or")) {
+                            Or = point2D;
+                        }
+                        // 前颅底平面所需要的两个点为Go点与Gn点
+                        if(point.getPointName().equals("Go")) {
+                            Go = point2D;
+                        }
+                        if(point.getPointName().equals("Gn")) {
+                            Gn = point2D;
+                        }
+                    }
+                    if(Go == null || Gn == null || Po == null || Or == null) {
+                        // 有一个为null，则说明标点不全，提醒用户，所标点不全
+                        throw new Exception("您所标记的点不全");
+                    }
+                    // 2、进行连线
+                    graphicsContext.setLineWidth(3);
+                    // result用于记录两个直线的交点
+                    Point2D result = getLineearIntersectionPoint(Or, Po, Gn, Go);
+                    System.out.println("交点坐标：" + result.getX() + " " + result.getY());
+
+                    Line line = new Line();
+                    line.setStartX(Gn.getX());
+                    line.setStartY(Gn.getY());
+                    line.setEndX(Go.getX());
+                    line.setEndY(Go.getY());
+                    if(!line.contains(result)) {
+                        line.setEndX(result.getX());
+                        line.setEndY(result.getY());
+                    }
+                    graphicsContext.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+
+                    line = new Line();
+                    line.setStartX(Po.getX());
+                    line.setStartY(Po.getY());
+                    line.setEndX(Or.getX());
+                    line.setEndY(Or.getY());
+                    if(!line.contains(result)) {
+                        line.setEndX(result.getX());
+                        line.setEndY(result.getY());
+                    }
+                    graphicsContext.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+                    // 3、测量对应测量项目的角度值或距离值
+                    // 参数顺序：需要计算的角，角1， 角2
+                    double angle = Angle(result, Or, Gn);
+                    // TODO 将结果添加入TextArea中
+                    Platform.runLater(() -> measurementResultTextArea.appendText("下颌平面角角度为：" + angle + "\n"));
+                    System.out.println("下颌平面角大小是：" + angle);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText("Warning Information");
+                    alert.setContentText("您所标记的点不全");
+                    alert.showAndWait();
+                    // 取消选中状态
+                    angleOfUpperIncisorCheckBox.setSelected(false);
+                }
             }
         });
 
         mandibularPlaneToFrankfortPlaneSNAngleCheckBox.setOnMouseClicked(event -> {
             if(mandibularPlaneToFrankfortPlaneSNAngleCheckBox.isSelected()) {
+                try {
+                    // 1、判断所测量的项目中的所需要的点是否存在
+                    Point2D S = null;
+                    Point2D Na = null;
+
+                    Point2D Go = null;
+                    Point2D Gn = null;
+                    for(Point2D point2D : point2DMap.keySet()) {
+                        Point point = point2DMap.get(point2D);
+                        if(point.getPointName().equals("S")) {
+                            S = point2D;
+                        }
+                        if(point.getPointName().equals("Na")) {
+                            Na = point2D;
+                        }
+                        // 前颅底平面所需要的两个点为Go点与Gn点
+                        if(point.getPointName().equals("Go")) {
+                            Go = point2D;
+                        }
+                        if(point.getPointName().equals("Gn")) {
+                            Gn = point2D;
+                        }
+                    }
+                    if(Go == null || Gn == null || S == null || Na == null) {
+                        // 有一个为null，则说明标点不全，提醒用户，所标点不全
+                        throw new Exception("您所标记的点不全");
+                    }
+                    // 2、进行连线
+                    graphicsContext.setLineWidth(3);
+                    // result用于记录两个直线的交点
+                    Point2D result = getLineearIntersectionPoint(Na, S, Gn, Go);
+                    System.out.println("交点坐标：" + result.getX() + " " + result.getY());
+
+                    Line line = new Line();
+                    line.setStartX(Gn.getX());
+                    line.setStartY(Gn.getY());
+                    line.setEndX(Go.getX());
+                    line.setEndY(Go.getY());
+                    if(!line.contains(result)) {
+                        line.setEndX(result.getX());
+                        line.setEndY(result.getY());
+                    }
+                    graphicsContext.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+
+                    line = new Line();
+                    line.setStartX(Na.getX());
+                    line.setStartY(Na.getY());
+                    line.setEndX(S.getX());
+                    line.setEndY(S.getY());
+                    if(!line.contains(result)) {
+                        line.setEndX(result.getX());
+                        line.setEndY(result.getY());
+                    }
+                    graphicsContext.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+                    // 3、测量对应测量项目的角度值或距离值
+                    // 参数顺序：需要计算的角，角1， 角2
+                    double angle = Angle(result, Na, Gn);
+                    // TODO 将结果添加入TextArea中
+                    Platform.runLater(() -> measurementResultTextArea.appendText("下颌平面-SN角角度为：" + angle + "\n"));
+                    System.out.println("下颌平面-SN角大小是：" + angle);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText("Warning Information");
+                    alert.setContentText("您所标记的点不全");
+                    alert.showAndWait();
+                    // 取消选中状态
+                    angleOfUpperIncisorCheckBox.setSelected(false);
+                }
             }
         });
 
@@ -1015,7 +1267,7 @@ public class HeadShadowViewController {
                     alert.setContentText("您所标记的点不全");
                     alert.showAndWait();
                     // 取消选中状态
-                    angleOfUpperIncisorCheckBox.setSelected(false);
+                    gonialAngleCheckBox.setSelected(false);
                 }
             }
         });
@@ -1025,6 +1277,8 @@ public class HeadShadowViewController {
             }
         });
 
+        // TODO !!!!!!!!! 有问题题，计算结果不正确
+        // 测量AR和Go点的直线距离
         extentOfAscendingRamusCheckBox.setOnMouseClicked(event -> {
             if(extentOfAscendingRamusCheckBox.isSelected()) {
             }
@@ -1121,7 +1375,7 @@ public class HeadShadowViewController {
                 } else if(NaCheckBox.isSelected() && !NaCheckBox.isDisable()) {
                     pointName = NaCheckBox.getText();
                     checkBox = NaCheckBox;
-                } else if(PoCheckBox.isSelected() && !LICheckBox.isDisable()) {
+                } else if(LICheckBox.isSelected() && !LICheckBox.isDisable()) {
                     pointName = LICheckBox.getText();
                     checkBox = LICheckBox;
                 } else if(LIACheckBox.isSelected() && !LIACheckBox.isDisable()) {
@@ -1166,6 +1420,7 @@ public class HeadShadowViewController {
                 // 将点加入map中
                 point2DMap.put(point2D, point);
                 positionMap.put(pointName, point2D);
+                System.out.println(checkBox);
                 checkBox.setSelected(true);
                 checkBox.setDisable(true);
                 // OrPointLabel, OrPointTextLabel
@@ -1416,11 +1671,20 @@ public class HeadShadowViewController {
         Image image = new Image("file:\\" + patientImageFile.getAbsolutePath());
         System.out.println(image);
         patientXImage.setImage(image);
-        patientXImage.setFitWidth(image.getWidth() * 1.5);
-        patientXImage.setFitHeight(image.getHeight() * 1.5);
+        System.out.println(content.getPrefWidth() + " " + content.getPrefHeight() + " " + image.getWidth() + " " + image.getHeight());
+        if(image.getWidth() < content.getPrefWidth()) {
+            content.setPrefWidth(image.getWidth());
+        }
+        if(image.getHeight() < content.getPrefHeight()) {
+            content.setPrefHeight(image.getHeight());
+        }
+
+        patientXImage.setFitWidth(content.getPrefWidth());
+        patientXImage.setFitHeight(content.getPrefHeight());
         canvas.setWidth(patientXImage.getFitWidth());
         canvas.setHeight(patientXImage.getFitHeight());
-
+        System.out.println(canvas.getWidth());
+        System.out.println(canvas.getHeight());
         // ----------------------------------------------------------------------------
         headShadowGuidanceImageView.setImage(new Image("file:\\" + "E:\\教学课件\\IDEA_PROJECT\\Fx_HeadShadow\\resources\\config\\headShadow.png"));
 
@@ -1589,6 +1853,19 @@ public class HeadShadowViewController {
         Point2D result = new Point2D(x, y);
 
         return result;
+    }
+
+    public void getPx() {
+        Toolkit  toolkit = Toolkit.getDefaultToolkit();
+        Dimension dimension = toolkit.getScreenSize();
+        // 1920 1080
+        double width = dimension.getWidth();
+        double height = dimension.getHeight();
+
+        // 96
+        int dpi = toolkit.getScreenResolution();
+
+        System.out.println(width + " " + height + " " + dpi);
     }
 
     private Image getImage(File file) {

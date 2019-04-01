@@ -1,5 +1,6 @@
 package stu.lxh.fx_headshadow.dao;
 
+import org.apache.ibatis.annotations.Param;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
 
@@ -19,4 +20,7 @@ public interface PatientInfoMapper {
     List<Patient> getAllPatients();
 
     List<ButtonInfo> getPatientImageInfo(String patientCardNumber);
+
+    void insertImagePosition(@Param("patientCardNumber") String patientCardNumber, @Param("buttonId") String buttonId, @Param("pointName") String pointName,
+                             @Param("x") double x, @Param("y") double y);
 }

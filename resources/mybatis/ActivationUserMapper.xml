@@ -20,7 +20,7 @@
     </select>
 
     <select id="getUserBySerial" parameterType="String" resultMap="getSerialByLicenseEntity">
-        SELECT  user_serial, user_license, user_activation FROM serial_info WHERE user_serial=#{serial}
+        SELECT user_serial, user_license, user_activation FROM serial_info WHERE user_serial=#{serial}
     </select>
 
     <insert id="insertAndActivationLicense" parameterType="stu.lxh.fx_headshadow.entity.ActivationUser">

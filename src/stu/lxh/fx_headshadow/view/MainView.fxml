@@ -74,6 +74,11 @@
                                                             <Insets bottom="5.0" left="10.0" top="5.0" />
                                                          </HBox.margin>
                                                       </Button>
+                                                      <Button mnemonicParsing="false" text="查询患者">
+                                                         <HBox.margin>
+                                                            <Insets bottom="5.0" left="10.0" top="5.0" />
+                                                         </HBox.margin>
+                                                      </Button>
                                                    </children>
                                                 </HBox>
                                              </bottom>

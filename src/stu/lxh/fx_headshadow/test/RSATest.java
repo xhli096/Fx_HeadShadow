@@ -8,6 +8,7 @@ import stu.lxh.fx_headshadow.dao.ActivationUserMapper;
 import stu.lxh.fx_headshadow.entity.ActivationUser;
 import stu.lxh.fx_headshadow.util.RSAUtils;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
@@ -56,30 +57,14 @@ public class RSATest {
     }
 
     public static void main(String[] args) {
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = getSqlSession();
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension dimension = toolkit.getScreenSize();
+        double width = dimension.getWidth();
+        double height = dimension.getHeight();
 
-            ActivationUserMapper activationUserMapper = sqlSession.getMapper(ActivationUserMapper.class);
-            ActivationUser activationUser = activationUserMapper.getSerialByLicense("PlEt3gf6WkYu7qXdEuJdkZR4vDgH7xjCejtA1XEzEM6ImEycp9bJJ4b5ZhDPtGPYRe0kwoD697X9EhNw60waDSkH4FbDaKzxu871brKXLdJlK4TUeKvyet0uNod+9bGrjg7BHdhB9Se9M7B84CdvNV1WZcNcHguv+UBaC9EQBf0=");
-            /*
-anodLqGmQ9k/DuSd93J2GGRZBAX68UnR7qEYpSDzBY6FepNYVW2pVnTxK//CvYuEKqSZ+btr1rw+
-demIaMN43jrz9AiZ3QvWOD7xOjVKnxbrOWQtT+AsjIvJNAAwnatqyqwZx69M4EJ5xCDSgxDqv2qO
-+84abX9jEewYgQ4G3WQ=             */
+        int dpi = toolkit.getScreenResolution();
 
-            /*
-anodLqGmQ9k/DuSd93J2GGRZBAX68UnR7qEYpSDzBY6FepNYVW2pVnTxK//CvYuEKqSZ+btr1rw+\n" +
-                    "demIaMN43jrz9AiZ3QvWOD7xOjVKnxbrOWQtT+AsjIvJNAAwnatqyqwZx69M4EJ5xCDSgxDqv2qO\n" +
-                    "+84abX9jEewYgQ4G3WQ=             */
-            System.out.println(activationUser);
-
-            sqlSession.commit();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            sqlSession.close();
-        }
-
+        System.out.println(width + " " + height + " " + dpi);
     }
 
     private static void test() throws Exception {
