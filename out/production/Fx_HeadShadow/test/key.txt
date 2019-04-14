@@ -1,0 +1,23 @@
+所有者: CN=li, OU=xupt, O=xupt, L=xian, ST=shanxi, C=cn
+发布者: CN=li, OU=xupt, O=xupt, L=xian, ST=shanxi, C=cn
+序列号: 3a17b9d3
+有效期开始日期: Tue Mar 05 10:06:12 CST 2019, 截止日期: Fri Mar 02 10:06:12 CST 2029
+证书指纹:
+         MD5: C2:2F:D0:A5:D1:61:0B:36:F9:BA:E3:78:4D:6F:0C:21
+         SHA1: 4A:0D:5B:1E:0C:FB:21:7A:6F:E3:6D:BB:C9:B6:B0:70:A5:10:F3:0A
+         SHA256: D2:35:50:59:25:34:5E:86:DE:A1:E9:7B:FE:AF:C6:97:19:3A:1D:F7:3F:AD:60:52:2D:07:40:F2:3E:0A:36:46
+         签名算法名称: SHA1withDSA
+         版本: 3
+
+扩展:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: FE 7C 2D AD 66 66 93 E0   1B 3E B4 01 84 39 FB B5  ..-.ff...>...9..
+0010: 2F A3 1F 7B                                        /...
+]
+]
+
+是否信任此证书? [否]:  y
+证书已添加到密钥库中

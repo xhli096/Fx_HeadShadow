@@ -1,0 +1,13 @@
+日志日期：2019-04-04
+病历序号：1
+病人信息：
+{"age":1212,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"是的发送","first":"初诊","firstConsultationTime":{"date":4,"day":4,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554307200000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190404002","patientContactAddress":"防守打法地方","patientContactPhone":"121212速度发到付发电房","patientName":"啦啦啦","patientPhotoPathMap":{"潘鹏宇.jpg":{"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}},"pointPositionMap":{"潘鹏宇.jpg":{"S":{"x":195,"y":303},"Na":{"x":338,"y":321},"Id":{"x":330,"y":490}}}}
+病人图像信息：
+20190404002 1
+潘鹏宇.jpg {"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}
+病人图像点位置信息：
+20190404002 1
+潘鹏宇.jpg 3
+S 195.0 303.0
+Na 338.0 321.0
+Id 330.0 490.0

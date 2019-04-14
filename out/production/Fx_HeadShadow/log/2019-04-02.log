@@ -1,0 +1,10 @@
+日志日期：2019-04-02
+病历序号：1
+病人信息：
+{"age":2232,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"发斯蒂芬","first":"初诊","firstConsultationTime":{"date":2,"day":2,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554134400000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190402001","patientContactAddress":"撒地方的","patientContactPhone":"撒地方法","patientName":"萨芬的","patientPhotoPathMap":{"潘鹏宇.jpg":{"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}},"pointPositionMap":{"潘鹏宇.jpg":{}}}
+病人图像信息：
+20190402001 1
+潘鹏宇.jpg {"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}
+病人图像点位置信息：
+20190402001 1
+潘鹏宇.jpg 0

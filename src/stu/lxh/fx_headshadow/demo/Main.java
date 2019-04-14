@@ -11,14 +11,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import net.sf.ezmorph.bean.MorphDynaBean;
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import stu.lxh.fx_headshadow.controller.AddPatientViewController;
 import stu.lxh.fx_headshadow.controller.MainViewController;
 import stu.lxh.fx_headshadow.dao.ActivationUserMapper;
@@ -26,7 +26,6 @@ import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ActivationUser;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
 import stu.lxh.fx_headshadow.entity.Patient;
-import stu.lxh.fx_headshadow.entity.Point;
 import stu.lxh.fx_headshadow.util.ComputerUtil;
 
 import java.io.*;
@@ -37,6 +36,8 @@ import java.util.*;
  * Created by LXH on 2019/1/6.
  */
 public class Main extends Application {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     private Stage primaryStage;
 
     private Parent root;
@@ -102,7 +103,7 @@ public class Main extends Application {
         try {
             this.primaryStage = primaryStage;
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(Main.class.getResource("../view/MainView.fxml"));
+            fxmlLoader.setLocation(Main.class.getClassLoader().getResource("stu/lxh/fx_headshadow/view/MainView.fxml"));
             fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
             root = fxmlLoader.load();
             this.primaryStage.setTitle("头影测量");
@@ -191,11 +192,12 @@ public class Main extends Application {
      * @throws IOException
      */
     private void readTodayLog() throws IOException {
-        File logDir = new File("resources/log");
+        File logDir = new File("log");
         String filePath = logDir + "\\" + LocalDate.now() + ".log";
-        FileReader fileReader = new FileReader(filePath);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-
+        System.out.println("filePath:" + filePath);
+        // FileReader fileReader = new FileReader(filePath);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream(filePath)));
+        System.out.println(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream(filePath)));
         String str;
         boolean nextIsPatient = false;
         boolean nextIsPatientImage = false;
@@ -272,11 +274,13 @@ public class Main extends Application {
             }
         }
 
+        System.out.println("=======================================================================");
         for(String cardNumber : patientMap.keySet()) {
             Patient patient = patientMap.get(cardNumber);
             Map<String, Map<String, Point2D>> pointPositionMap = patient.getPointPositionMap();
 
             System.out.println(pointPositionMap);
+/*
             for(String key : pointPositionMap.keySet()){
                 Map<String, Point2D> stringPoint2DMap = pointPositionMap.get(key);
                 System.out.println(stringPoint2DMap);
@@ -285,7 +289,9 @@ public class Main extends Application {
                     System.out.println(point2D);
                 }
             }
+*/
         }
+        System.out.println("======================================================================");
     }
 
 
@@ -328,10 +334,10 @@ public class Main extends Application {
 
         // TODO 如果当前计算机已经使用序列号进行激活，则进行save，否则则不保存信息。
         if(save) {
-            File logDir = new File("resources/log");
+            File logDir = new File("log");
             String filePath = logDir + "\\" + LocalDate.now() + ".log";
 
-            FileWriter fileWriter = new FileWriter(new File(filePath));
+            FileWriter fileWriter = new FileWriter(new File("resources/" + filePath));
             fileWriter.write("日志日期：" + LocalDate.now() + "\n");
             // 将currentCount写入日志文件，以便下次自动生成病历号时使用
             int curCount = AddPatientViewController.getCount();

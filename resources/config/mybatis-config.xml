@@ -22,7 +22,7 @@
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/fx_headshadow"/>
                 <property name="username" value="root"/>
-                <property name="password" value="18829523217"/>
+                <property name="password" value="mysql"/>
             </dataSource>
         </environment>
     </environments>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="stu.lxh.fx_headshadow.dao.PatientInfoMapper">
+    <!-- namespace:名称空间:动态绑定则指定为接口的全类名,只在MySQL环境下才使用的SQL  -->
+
+    <select id="getPreDayPatients" resultType="stu.lxh.fx_headshadow.entity.Patient">
+
+    </select>
+
+    <select id="getAllPatients" resultType="stu.lxh.fx_headshadow.entity.Patient">
+        SELECT * FROM patient_info
+    </select>
+
+    <select id="getPatientImageInfo" resultType="stu.lxh.fx_headshadow.entity.ButtonInfo" parameterType="String">
+        SELECT buttonId, imagePath, width, height  FROM patient_x_image_info WHERE patientCardNumber = #{patientCardNumber}
+    </select>
+
+    <insert id="insertImagePosition">
+      INSERT INTO patient_x_image_point_position_info(patientCardNumber, buttonId, pointName, width, height) VALUES
+        (#{patientCardNumber}, #{buttonId},#{pointName}, #{x}, #{y})
+    </insert>
+</mapper>
+<!--
+        (#{patientCardNumber}, #{buttonId},
+<foreach collection="map.keys" item="key" separator=",">#{key}</foreach>
+<foreach collection="map.values" item="v">#{v.x}, #{v.y}</foreach>
+        )
+-->

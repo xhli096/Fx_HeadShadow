@@ -24,6 +24,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import stu.lxh.fx_headshadow.dao.AddPatientViewMapper;
 import stu.lxh.fx_headshadow.dao.PatientInfoMapper;
 import stu.lxh.fx_headshadow.entity.ButtonInfo;
@@ -43,6 +45,8 @@ import java.util.*;
  * Created by LXH on 2019/1/6.
  */
 public class MainViewController {
+    private static final Logger logger = LoggerFactory.getLogger(MainViewController.class);
+    
     @FXML
     private Button addNewPatientButton;
     @FXML
@@ -102,7 +106,7 @@ public class MainViewController {
     @FXML
     private Button activationButton;
 
-    private Patient currentPatient;
+    private static Patient currentPatient;
     // 记录前一天
     private LocalDate preDay;
     // 记录后一天
@@ -245,14 +249,16 @@ public class MainViewController {
     private void readLog(LocalDate localDate, String string) {
         Map<String, Patient> patientMap = new LinkedHashMap<>();
         try {
-            File logDir = new File("resources/log");
+            File logDir = new File("log");
             String filePath = logDir + "\\" + localDate + ".log";
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            System.out.println("filePath:" + filePath);
+            // FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath)));
 
             String str;
             boolean nextIsPatient = false;
             boolean nextIsPatientImage = false;
+            boolean nextIsPatientImagePointInfo = false;
             // 按行读取字符串
             while ((str = bufferedReader.readLine()) != null) {
                 // 设置count的值
@@ -266,6 +272,12 @@ public class MainViewController {
                 }
                 if(str.startsWith("病人图像信息：")) {
                     nextIsPatientImage = true;
+                    nextIsPatient = false;
+                    continue;
+                }
+                if(str.startsWith("病人图像点位置信息：")) {
+                    nextIsPatientImagePointInfo = true;
+                    nextIsPatientImage = false;
                     nextIsPatient = false;
                     continue;
                 }
@@ -289,7 +301,55 @@ public class MainViewController {
                         }
                     }
                 }
+                if(nextIsPatientImagePointInfo) {
+                    System.out.println("str:" + str);
+                    // TODO 处理点的问题
+                    String cardNumber = str.split(" ")[0];
+                    int count = Integer.parseInt(str.split(" ")[1]);
+                    int mem;
+                    System.out.println("cardNumber:" + cardNumber);
+                    Patient patient = patientMap.get(cardNumber);
+                    Map<String, Map<String, Point2D>> result = new HashMap<>();
+                    for(int i = 0; i < count; i++) {
+                        if((str = bufferedReader.readLine()) != null) {
+                            String buttonId = str.split(" ")[0];
+                            mem = Integer.parseInt(str.split(" ")[1]);
+                            Map<String, Point2D> point2DMap = new HashMap<>();
+                            for(int j = 0; j < mem; j++) {
+                                if((str = bufferedReader.readLine()) != null) {
+                                    String[] values = str.split(" ");
+                                    String pointName = values[0];
+                                    Point2D point2D = new Point2D(Double.parseDouble(values[1]), Double.parseDouble(values[2]));
+                                    point2DMap.put(pointName, point2D);
+                                }
+                            }
+                            if(point2DMap.size() > 0) {
+                                result.put(buttonId, point2DMap);
+                            }
+                        }
+                    }
+                    patient.setPointPositionMap(result);
+                }
             }
+            System.out.println("=======================================================================");
+            for(String cardNumber : patientMap.keySet()) {
+                Patient patient = patientMap.get(cardNumber);
+                System.out.println(patient.toString());
+                Map<String, Map<String, Point2D>> pointPositionMap = patient.getPointPositionMap();
+
+                System.out.println(pointPositionMap);
+/*
+            for(String key : pointPositionMap.keySet()){
+                Map<String, Point2D> stringPoint2DMap = pointPositionMap.get(key);
+                System.out.println(stringPoint2DMap);
+                for(String k : stringPoint2DMap.keySet()) {
+                    Point2D point2D = stringPoint2DMap.get(k);
+                    System.out.println(point2D);
+                }
+            }
+*/
+            }
+            System.out.println("======================================================================");
 
             // 至此读取完整的日志信息，可以恢复列表
             if(string.equals("pre")) {
@@ -342,7 +402,7 @@ public class MainViewController {
         addNewPatientButton.addEventFilter(MouseEvent.ANY, event -> {
             if(event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 try {
-                    Parent root = FXMLLoader.load(MainViewController.class.getResource("../view/AddPatientView.fxml"));
+                    Parent root = FXMLLoader.load(MainViewController.class.getClassLoader().getResource("stu/lxh/fx_headshadow/view/AddPatientView.fxml"));
                     Scene scene = new Scene(root, 600, 400);
                     addNewPatientStage = new Stage();
                     addNewPatientStage.initModality(Modality.APPLICATION_MODAL);
@@ -361,7 +421,6 @@ public class MainViewController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 // TODO 处理界面关闭
             }
         });
@@ -432,9 +491,21 @@ public class MainViewController {
                     try {
                         File file = new File(PropertiesUtil.getValue("oriImagePath", "config.properties") + button.getId());
                         HeadShadowViewController.setPatientImageFile(file);
-                        System.out.println(file.getAbsolutePath());
+
+                        Map<String, Map<String, Point2D>> pointPositionMap = currentPatient.getPointPositionMap();
+                        // 如果当前患者是个新患者，则pointPointPositionMap为空，这需要重置HeadShadowViewController中的Map为空，不能使用以前的map
+                        if(pointPositionMap.size() == 0) {
+                            HeadShadowViewController.setPositionMap(new HashMap<>());
+                        }
+                        for(String key : pointPositionMap.keySet()) {
+                            if(key.equals(button.getId())) {
+                                Map<String, Point2D> stringPoint2DMap = pointPositionMap.get(key);
+                                System.out.println(key + " " + stringPoint2DMap.size());
+                                HeadShadowViewController.setPositionMap(stringPoint2DMap);
+                            }
+                        }
                         // 如果使用 Parent root = FXMLLoader.load(...) 静态读取方法，无法获取到Controller的实例对象
-                        fxmlLoader.setLocation(MainViewController.class.getResource("/stu/lxh/fx_headshadow/view/HeadShadow.fxml"));
+                        fxmlLoader.setLocation(MainViewController.class.getClassLoader().getResource("stu/lxh/fx_headshadow/view/HeadShadow.fxml"));
                         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
                         Parent root = fxmlLoader.load();
                         Scene scene = new Scene(root, 1000, 200);
@@ -553,7 +624,7 @@ public class MainViewController {
 
             Parent root = null;
             try {
-                fxmlLoader.setLocation(MainViewController.class.getResource("/stu/lxh/fx_headshadow/view/ActivationView.fxml"));
+                fxmlLoader.setLocation(MainViewController.class.getClassLoader().getResource("stu/lxh/fx_headshadow/view/ActivationView.fxml"));
                 fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
                 root = fxmlLoader.load();
 
@@ -682,6 +753,10 @@ public class MainViewController {
         dateOfBirthLabel.setText(sdf.format(patient.getDateOfBirth()));
         patientContactPhoneLabel.setText(patient.getPatientContactPhone());
         patientContactAddressLabel.setText(patient.getPatientContactAddress());
+    }
+
+    public static Patient getCurrentPatient() {
+        return currentPatient;
     }
 
     public static Map<String, Patient> getPatientMap() {

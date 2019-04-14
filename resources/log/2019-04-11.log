@@ -1,0 +1,48 @@
+日志日期：2019-04-11
+病历序号：5
+病人信息：
+{"age":21,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"大幅度发方法","first":"初诊","firstConsultationTime":{"date":11,"day":4,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554912000000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190411001","patientContactAddress":"阿斯蒂芬发电房","patientContactPhone":"阿斯蒂芬","patientName":"朔样","patientPhotoPathMap":{"潘鹏宇.jpg":{"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}},"pointPositionMap":{"潘鹏宇.jpg":{"A":{"x":322,"y":540},"UI":{"x":365,"y":482},"Ptm":{"x":243,"y":470},"LI":{"x":261,"y":323}}}}
+{"age":22,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"递四方速递付付付付","first":"初诊","firstConsultationTime":{"date":11,"day":4,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554912000000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190411002","patientContactAddress":"撒旦法师打发范德萨","patientContactPhone":"撒地方法规范","patientName":"文正","patientPhotoPathMap":{"熊靖.jpg":{"buttonId":"熊靖.jpg","height":170,"imagePath":"resources/image/熊靖.jpg","width":130}},"pointPositionMap":{"熊靖.jpg":{"A":{"x":322,"y":540},"UI":{"x":365,"y":482},"Ptm":{"x":243,"y":470},"LI":{"x":261,"y":323}}}}
+{"age":22,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"撒地方法","first":"初诊","firstConsultationTime":{"date":11,"day":4,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554912000000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190411003","patientContactAddress":"毒贩夫妇","patientContactPhone":"打的费","patientName":"啊啊啊","patientPhotoPathMap":{"潘鹏宇.jpg":{"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}},"pointPositionMap":{"潘鹏宇.jpg":{"A":{"x":322,"y":540},"UI":{"x":365,"y":482},"Ptm":{"x":243,"y":470},"LI":{"x":261,"y":323}}}}
+{"age":22,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"阿斯顿方法","first":"初诊","firstConsultationTime":{"date":11,"day":4,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554912000000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190411004","patientContactAddress":"奋斗哥哥哥","patientContactPhone":"毒贩夫妇","patientName":"复方凤胆","patientPhotoPathMap":{"杨莉莉.jpg":{"buttonId":"杨莉莉.jpg","height":170,"imagePath":"resources/image/杨莉莉.jpg","width":130}},"pointPositionMap":{"杨莉莉.jpg":{"S":{"x":202,"y":309},"Na":{"x":323,"y":303},"PNS":{"x":236,"y":359},"ANS":{"x":234,"y":460},"Ptm":{"x":236,"y":451},"Id":{"x":344,"y":504},"LI":{"x":366,"y":404}}}}
+{"age":234,"dateOfBirth":{"date":1,"day":5,"hours":0,"minutes":0,"month":0,"seconds":0,"time":-1925020800000,"timezoneOffset":-480,"year":9},"doctor":"反反复复","first":"初诊","firstConsultationTime":{"date":11,"day":4,"hours":0,"minutes":0,"month":3,"seconds":0,"time":1554912000000,"timezoneOffset":-480,"year":119},"gender":"男","patientCardNumber":"20190411005","patientContactAddress":"腹股沟管各个","patientContactPhone":"撒地方法付付付","patientName":"爱上对方答复","patientPhotoPathMap":{"潘鹏宇.jpg":{"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}},"pointPositionMap":{}}
+病人图像信息：
+20190411001 1
+潘鹏宇.jpg {"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}
+20190411002 1
+熊靖.jpg {"buttonId":"熊靖.jpg","height":170,"imagePath":"resources/image/熊靖.jpg","width":130}
+20190411003 1
+潘鹏宇.jpg {"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}
+20190411004 1
+杨莉莉.jpg {"buttonId":"杨莉莉.jpg","height":170,"imagePath":"resources/image/杨莉莉.jpg","width":130}
+20190411005 1
+潘鹏宇.jpg {"buttonId":"潘鹏宇.jpg","height":170,"imagePath":"resources/image/潘鹏宇.jpg","width":130}
+病人图像点位置信息：
+20190411001 1
+潘鹏宇.jpg 4
+A 322.0 540.0
+UI 365.0 482.0
+Ptm 243.0 470.0
+LI 261.0 323.0
+20190411002 1
+熊靖.jpg 4
+A 322.0 540.0
+UI 365.0 482.0
+Ptm 243.0 470.0
+LI 261.0 323.0
+20190411003 1
+潘鹏宇.jpg 4
+A 322.0 540.0
+UI 365.0 482.0
+Ptm 243.0 470.0
+LI 261.0 323.0
+20190411004 1
+杨莉莉.jpg 7
+S 202.0 309.0
+Na 323.0 303.0
+PNS 236.0 359.0
+ANS 234.0 460.0
+Ptm 236.0 451.0
+Id 344.0 504.0
+LI 366.0 404.0
+20190411005 0

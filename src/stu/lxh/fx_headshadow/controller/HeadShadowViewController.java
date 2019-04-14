@@ -12,25 +12,36 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.DirectoryChooser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import stu.lxh.fx_headshadow.entity.Point;
+import stu.lxh.fx_headshadow.util.CustomXWPFDocument;
+import stu.lxh.fx_headshadow.util.StageManager;
+import stu.lxh.fx_headshadow.util.VariableSubstitutionUtil;
+import stu.lxh.fx_headshadow.util.WorderToNewWordUtils;
 
 import java.awt.*;
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by LXH on 2019/1/29.
  */
 public class HeadShadowViewController {
+    private static final Logger logger = LoggerFactory.getLogger(HeadShadowViewController.class);
+
     @FXML
     private AnchorPane patientPane;
     @FXML
@@ -229,12 +240,12 @@ public class HeadShadowViewController {
      */
     @FXML
     private CheckBox SNPrCheckBox;
-    @FXML
+/*    @FXML
     private CheckBox NAMMCheckBox;
     @FXML
     private CheckBox incisorPositionCheckBox;
     @FXML
-    private CheckBox heightOfUpperIncisorAndAlveolarCheckBox;
+    private CheckBox heightOfUpperIncisorAndAlveolarCheckBox;*/
     @FXML
     private CheckBox SNBAngleCheckBox;
     @FXML
@@ -253,15 +264,17 @@ public class HeadShadowViewController {
     private CheckBox mandibularPlaneToFrankfortPlaneSNAngleCheckBox;
     @FXML
     private CheckBox gonialAngleCheckBox;
-    @FXML
+/*    @FXML
     private CheckBox extentOfMandibularBaseCheckBox;
     @FXML
-    private CheckBox extentOfAscendingRamusCheckBox;
+    private CheckBox extentOfAscendingRamusCheckBox;*/
     @FXML
     private CheckBox SNAAngleCheckBox;
 
     @FXML
     private Button revokeButton;
+    @FXML
+    private Button derivedResultsButton;
 
     private static File patientImageFile;
 
@@ -288,10 +301,17 @@ public class HeadShadowViewController {
     /**
      * 存储有哪些点位，用于恢复时使用
      */
-    private Map<String, Point2D> positionMap;
+    private static Map<String, Point2D> positionMap;
+
+    private static final String INPUT_STR = "config/测量结果.docx";
+    private static String HEAD_SHADOW_PATH;
 
     static {
         patientImageFile = null;
+        Map<String, String> map = new HashMap<>();
+        map.put("project_path", System.getProperty("user.dir"));
+
+        HEAD_SHADOW_PATH = VariableSubstitutionUtil.getTranslate(VariableSubstitutionUtil.HEAD_SHADOW, map);
     }
 
     @FXML
@@ -300,7 +320,6 @@ public class HeadShadowViewController {
         point2DMap = new HashMap<>();
         checkBoxMap = new HashMap<>();
         labelMap = new HashMap<>();
-        positionMap = new HashMap<>();
         init();
         dealAction();
     }
@@ -331,6 +350,34 @@ public class HeadShadowViewController {
 //                canvas.setHeight(height);
 //            }
 //        });
+
+        // 完成导出测量结果
+        derivedResultsButton.setOnMouseClicked(event -> {
+            try {
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                File file = directoryChooser.showDialog(StageManager.getStage("headShadowStage"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                String path = file.getPath();
+                File resultFile = new File(path + "\\" + MainViewController.getCurrentPatient().getPatientCardNumber() + "_" + simpleDateFormat.format(new Date()) + ".docx");
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+                Map<String, Object> paramsMap = new HashMap<>();
+                paramsMap.put("patientCardNumber", MainViewController.getCurrentPatient().getPatientCardNumber());
+                paramsMap.put("patientName", MainViewController.getCurrentPatient().getPatientName());
+                paramsMap.put("date", dateFormat.format(new Date()));
+                paramsMap.put("result", measurementResultTextArea.getText());
+
+                CustomXWPFDocument customXWPFDocument = WorderToNewWordUtils.generateWord(INPUT_STR, paramsMap, null);
+                // 结果输出流
+                FileOutputStream fileOutputStream = new FileOutputStream(resultFile);
+                customXWPFDocument.write(fileOutputStream);
+                fileOutputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         // TODO 完成测量项目的逻辑
         // 测量上中切牙角
@@ -560,6 +607,7 @@ public class HeadShadowViewController {
             }
         });
 
+/*
         NAMMCheckBox.setOnMouseClicked((MouseEvent event) -> {
             if(NAMMCheckBox.isSelected()) {
                 try {
@@ -613,6 +661,7 @@ public class HeadShadowViewController {
             if(heightOfUpperIncisorAndAlveolarCheckBox.isSelected()) {
             }
         });
+*/
 
         SNBAngleCheckBox.setOnMouseClicked(event -> {
             if(SNBAngleCheckBox.isSelected()) {
@@ -1272,6 +1321,7 @@ public class HeadShadowViewController {
             }
         });
 
+/*
         extentOfMandibularBaseCheckBox.setOnMouseClicked(event -> {
             if(extentOfMandibularBaseCheckBox.isSelected()) {
             }
@@ -1283,6 +1333,7 @@ public class HeadShadowViewController {
             if(extentOfAscendingRamusCheckBox.isSelected()) {
             }
         });
+*/
 
         // TODO 撤销点操作
         revokeButton.setOnMouseClicked(event -> {
@@ -1419,6 +1470,9 @@ public class HeadShadowViewController {
                 Point point = new Point(pointName, point2D);
                 // 将点加入map中
                 point2DMap.put(point2D, point);
+                if(positionMap == null) {
+                    positionMap = new HashMap<>();
+                }
                 positionMap.put(pointName, point2D);
                 System.out.println(checkBox);
                 checkBox.setSelected(true);
@@ -1666,8 +1720,6 @@ public class HeadShadowViewController {
         content.setStyle("-fx-background-color:#f3f3f3;");
         content.setAlignment(Pos.CENTER);
 
-        System.out.println(patientImageFile.getAbsolutePath());
-        System.out.println("file:\\" + patientImageFile.getAbsolutePath());
         Image image = new Image("file:\\" + patientImageFile.getAbsolutePath());
         System.out.println(image);
         patientXImage.setImage(image);
@@ -1683,10 +1735,36 @@ public class HeadShadowViewController {
         patientXImage.setFitHeight(content.getPrefHeight());
         canvas.setWidth(patientXImage.getFitWidth());
         canvas.setHeight(patientXImage.getFitHeight());
-        System.out.println(canvas.getWidth());
-        System.out.println(canvas.getHeight());
-        // ----------------------------------------------------------------------------
-        headShadowGuidanceImageView.setImage(new Image("file:\\" + "E:\\教学课件\\IDEA_PROJECT\\Fx_HeadShadow\\resources\\config\\headShadow.png"));
+        headShadowGuidanceImageView.setImage(new Image("file:\\" + HEAD_SHADOW_PATH));
+
+        // 恢复点的位置
+        if(positionMap != null && positionMap.size() > 0) {
+            if(graphicsContext == null) {
+                synchronized (HeadShadowViewController.class) {
+                    if(graphicsContext == null) {
+                        graphicsContext = canvas.getGraphicsContext2D();
+                    }
+                }
+            }
+            // 设置内容颜色
+            graphicsContext.setFill(Color.RED);
+            // 设置线条颜色
+            graphicsContext.setStroke(Color.RED);
+
+            for(String key : positionMap.keySet()) {
+                Point2D point2D = positionMap.get(key);
+                // 回复的点，不允许其进行撤销
+                // point2DList.add(point2D);
+                CheckBox checkBox = checkBoxMap.get(key);
+                checkBox.setSelected(true);
+                checkBox.setDisable(true);
+                graphicsContext.fillOval(point2D.getX(), point2D.getY(), 3, 3);
+                // 将点加入map中
+                point2DMap.put(point2D, new Point(key, point2D));
+                positionMap.put(key, point2D);
+            }
+
+        }
 
         // TODO 初始化时，所有指示位置的指向，均不显示。
         setLabelVisible(OrPointLabel, OrPointTextLabel, false);
@@ -1878,7 +1956,11 @@ public class HeadShadowViewController {
         return null;
     }
 
-    public Map<String, Point2D> getPositionMap() {
+    public static Map<String, Point2D> getPositionMap() {
         return positionMap;
+    }
+
+    public static void setPositionMap(Map<String, Point2D> positionMap) {
+        HeadShadowViewController.positionMap = positionMap;
     }
 }
